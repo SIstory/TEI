@@ -1,0 +1,2128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="TEI">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>Vodič TEI</title>
+				<author>
+					<forename>Mihael</forename>
+					<surname>Ojsteršek</surname>
+				</author>
+			</titleStmt>
+			<editionStmt>
+				<edition>Verzija 1.0</edition>
+			</editionStmt>
+			<publicationStmt>
+				<publisher>Inštitut za novejšo zgodovino</publisher>
+				<pubPlace>Ljubljana</pubPlace>
+				<date when="2024">2024</date>
+				<availability>
+					<licence>http://creativecommons.org/licenses/by-nc-nd/4.0/</licence>
+					<p style="text-align:justify">To delo je ponujeno pod <ref target="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Priznanje
+							avtorstva-Nekomercialno-Brez predelav 4.0 Mednarodna licenco</ref>
+					</p>
+					<p rend="CIP"/>
+				</availability>
+			</publicationStmt>
+			<sourceDesc>
+				<p>No source, born digital.</p>
+			</sourceDesc>
+		</fileDesc>
+		<profileDesc>
+			<textClass>
+				<keywords>
+					<term/>
+					<term/>
+					<term/>
+				</keywords>
+			</textClass>
+			<langUsage>
+				<language ident="sl">
+					<term xml:lang="sl">slovenščina</term>
+					<term xml:lang="en">slovenian</term>
+				</language>
+			</langUsage>
+		</profileDesc>
+	</teiHeader>
+	<text>
+		<front>
+			<titlePage>
+				<docTitle>
+					<titlePart type="main">TEI</titlePart>
+				</docTitle>
+				<graphic url="cover-page.jpg"/>
+				<docImprint>
+					<publisher>Inštitut za novejšo zgodovino</publisher>
+					<date>2024</date>
+				</docImprint>
+			</titlePage>
+			<!--
+                        <divGen type="cip" xml:id="cip-sl">
+                                <head>Kolofon</head>
+                        </divGen>
+                        <divGen type="toc" xml:id="titleAuthor">
+                                <head>Kazalo</head>
+                        </divGen>
+                        <divGen type="search" xml:id="sl-search">
+                                <head>Iskanje</head>
+                        </divGen>-->
+			<div xml:id="preface" type="preface">
+				<head>I. Uvod v označevanje besedil in <hi rend="italic">smernice TEI</hi></head>
+				<div>
+				<p><hi rend="italic">Smernice TEI</hi> za kodiranje in izmenjavo elektronskih besedil opredeljujejo in dokumentirajo označevalni jezik za predstavitev strukturnih,
+					prevodnih in konceptualnih značilnosti besedil. Osredotočajo se (čeprav ne izključno) na kodiranje dokumentov v humanistiki in družboslovju ter še posebej na
+					predstavitev primarnih virov za raziskovanje in analizo. Te smernice so izražene kot modularna, razširljiva shema XML, ki jo spremlja podrobna dokumentacija, in
+					so objavljene pod odprtokodno licenco. Smernice vzdržuje in razvija <ref target="https://tei-c.org/">konzorcij TEI</ref></p></div>
+				<div>
+					<head>Kaj je XML - osnovne informacije</head>
+					<p>XML oziroma <hi rend="bold">eXstensible Markup Language</hi> je razširljiv označevalni jezik, ki omogoča jasno strukturiranje in organizacijo informacij.
+						Temelji na enostavni besedilni datoteki in ni zahteven glede porabe podatkov in je zato primeren za dolgoročno hrambo. Razvit je bil na osnovi SGMLja in je
+						standard za zapis elektronskih dokumentov. <hi rend="italic">XML dokument je besedilo</hi> zato ga lahko urejamo z navadnim besedilnim urejevalnikom. Uporablja se za semantično opisovanje podatkov. Združuje strojno
+						obdelovanje in lahko berljivost ljudem. XML dokument ima drevesno strukturo/hierarhijo XML elementov. Elementi imajo začetno značko (tag), vsebino in končno
+						značko: <egXML xmlns="http://www.tei-c.org/ns/Examples"><element>Vsebina</element></egXML> Na začetku dokumenta je posebna procesna inštrukcija, ki določa začetek xml dokumenta: <hi rend="bold">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</hi>
+						Vsak dokument ima začetni element (korenski element) :
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<root>
+								<child>
+									<subchild>.....</subchild>
+								</child>
+							</root>
+						</egXML>Elemente lahko gnezdimo. To pomeni, da lahko elementi vsebujejo enega ali več drugih elementov. Pri tem pazimo na pravilno hierarhijo elementov 
+						(angleška poimenovanje “sibling”, “parent”, “ancestor” ali “descendant")
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<div> <!-- parent -->
+								<p>Vsebina elementa</p> <!-- child -->
+								<p>Vsebina elementa</p> <!-- sibling -->
+							</div>
+						</egXML>
+						Elementi lahko vključujejo besedilo in elemente skupaj:
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<p>
+								Ime mu je bilo <name>Janez</name>
+							</p>
+						</egXML>
+						V XML dokumentu so dovoljeni tudi elementi brez vsebine. Ti imajo le začetno značko, ki se konča z <hi rend="bold">/></hi> in nima končne značke. Primer :<egXML xmlns="http://www.tei-c.org/ns/Examples"><graphic url="#TEI"/></egXML> 
+						Podatke o elementu ali njegovi vsebini zapišemo v atributih, ki so v začetni znački. Število atributov ni omejeno, njihov vrstni red ni pomemben. V začetni znački ne sme biti več atributov z istim imenom. Zapišejo se kot na primer: <egXML xmlns="http://www.tei-c.org/ns/Examples"><element
+							atribut="vrednost atributa">vsebina</element></egXML>. 
+					</p>
+				</div>
+				<div>
+					<head>TEI smernice</head>
+					<p>V digitalni humanistiki je označevalni jezik XML priljubljen zaradi jasne strukture in organiziranja podatkov. Pri uporabi smernic Text Encoding Initiative (TEI) XML služi kot
+						osnova za označevanje in dokumentiranje besedil z namenom njihove analize, hrambe in distribucije.</p>
+				<p><hi rend="italic">Smernice TEI</hi> lahko predstavljajo tako označevalni jezik in nabor oznak, ki ga je predlagal konzorcij TEI, kot na njegovo spletno ali
+					tiskano dokumentacijo. Smernice TEI pogosto uporabljajo knjižnice, muzeji, založniki in posamezni raziskovalci za predstavitev besedil za spletne raziskave,
+					poučevanje in ohranjanje. Ker je TEI izražen v eXtensible Markup Language (XML) in ker zagotavlja postopke in mehanizme za prilagajanje lastnim projektnim
+					potrebam, smernice TEI opredeljujejo odprt standard, ki je na splošno uporaben za katero koli besedilo in namen.</p>
+				<p>Zadnja verzija TEI smernic se opira na XML in z njim povezana orodja. Tako kot drugi označevalni jeziki tudi TEI definira nabor značk elementov XML, ki se
+					uporabljajo za kodiranje besedil, skupaj z atributi, ki se uporabljajo za modificiranje elementov. Ker skušajo smernice TEI zagotoviti okvir za kodiranje katere
+					koli zvrsti besedila iz katerega koli obdobja v katerem koli jeziku, je celoten nabor oznak TEI izjemno velik, sestavljen iz skoraj 500 elementov. V praksi
+					večina uporabnikov TEI redno uporablja veliko manjšo podmnožico polnega jezika.</p></div>
+			</div>
+			<div xml:id="preface.1" type="preface">
+				<head>II. TEI - Osnovne strukture, elementi in atributi</head>
+				<p>Konzorcij TEI je svoje delo oblikoval kot smernice, pravila in priporočila, ne pa kot standardi, ker je zaželjeno, da mora imeti vsak raziskovalec svobodo
+					izražanja lastne teorije besedila s kodiranjem elementov, ki se mu zdijo pomembni v besedilu. Široka paleta možnih rešitev za kodiranje je prikazana v smernicah
+					TEI, ki jih je zato treba obravnavati kot referenčni priročnik in ne kot vadnico.</p>
+				<p>Elementi v TEI spadajo v dve široki kategoriji, <list rend="numbered">
+						<item>tisti, ki se uporabljajo za zajemanje metapodatkov o besedilu, ki se kodira (avtorstvo in odgovornost, bibliografski podatki, opis rokopisa, zgodovina
+							revizij itd.)</item>
+						<item>in tisti, ki se uporabljajo za kodiranje strukturnih značilnosti sam dokument, kot so razdelki, naslovi, odstavki, citati, označevanje itd.</item>
+					</list>
+				</p>
+				<p>Celoten dokument TEI je sestavljen iz enega samega elementa <gi>TEI</gi>, ki je sestavljen iz dveh glavnih komponent: <list>
+						<item><gi>teiHeader</gi> - element, ki vsebuje vse metapodatke, ki opisujejo dokument in</item>
+						<item><gi>text</gi> - element, ki vsebuje dejanski dokument.</item>
+					</list> Ta skupna struktura je obvezna za vse "standardne" dokumente TEI. <egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<TEI>
+							<!-- minimalna struktura TEI dokumenta -->
+							<teiHeader>
+								<!-- -... -->
+							</teiHeader>
+							<text>
+								<!-- ... -->
+							</text>
+						</TEI>
+					</egXML> "Glava" TEI <gi>teiHeader</gi> je obvezna in vsebuje opisne metapodatke o dokumentu. Vsebovati mora opis elektronske datoteke znotraj elementa
+						<gi>fileDesc</gi>. V tem elementu so obvezni elementi <gi>titleStmt</gi>, za informacijo o naslovu, avtorju in drugih odgovornih za elektronski tekst,
+						<gi>publicationStmt</gi>, za podrobnosti o publikaciji elektronskega besedila in <gi>sourceDesc</gi>, ki zabeleži bibliografske podrobnosti o viru
+					elektronskega besedila (če ta obstaja). Vsi ti elementi vsebujejo še druge specifične elemente, ki so razloženi v naslednjem poglavju. Primer <gi>teiHeader</gi>
+					z najosnovnejšemi elementi: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<TEI>
+							<!-- minimalna struktura teiHeader -->
+							<teiHeader>
+								<fileDesc>
+									<titleStmt>
+										<title>Osnove TEI</title>
+										<author>Mihael Ojsteršek</author>
+									</titleStmt>
+									<publicationStmt>
+										<p>Informacije o publikaciji</p>
+									</publicationStmt>
+									<sourceDesc>
+										<p>No source, born digital</p>
+									</sourceDesc>
+								</fileDesc>
+							</teiHeader>
+						</TEI>
+					</egXML>
+				</p>
+				<p>V TEI XML dokumentu je glavni del besedila običajno shranjen znotraj elementa <gi>text</gi>. V njem je označena vsebina izvornega besedila, ki je predmet analize
+					ali objave in omogoča strukturo, ki omogoča ohranjanje zgodovinskih, literarnih ali drugih značilnosti besedila. Znotraj elementa <gi>text</gi> so lahko
+					ugnezdeni številni drugi elementi, uporabljeni glede na želje označevalca oziroma za potrebe projekta. Kot že omenjeno vsebujejo smernice TEI več kot 500
+					elementov. Nekateri izmed osnovnih elementov za označevanje strukture besedila, specifičnih vsebin in značilnosti so : <list>
+						<item><gi>front</gi> (front matter) - vsebuje uvodno vsebino npr. naslove, povzetke, naslovno stran, predgovore, posvetila...</item>
+						<item><gi>body</gi> - glavni del besedila, kjer je tekst</item>
+						<item><gi>back</gi> (back matter) - zadnji del besedila, kjer so ponavadi seznami literature ali priloge</item>
+						<item><gi>head</gi> - naslov (sekcije, poglavja)</item>
+						<item><gi>div</gi> (division) - razdelek, za delitev besedila v več delov (npr. poglavja)</item>
+						<item><gi>p</gi> (paragraph) - označuje odstavek</item>
+						<item><gi>pb</gi> (page break) - označuje konec strani v izvornem besedilu</item>
+						<item><gi>lb</gi> (line break) - označuje konec vrstice</item>
+						<item><gi>hi</gi> (highlight) - označuje poudarke</item>
+						<item><gi>l</gi> (line) - označuje vrstico (npr. v poeziji)</item>
+						<item><gi>lg</gi> (line group) - skupina vrstic, kitica</item>
+						<item><gi>list</gi> - označuje seznam</item>
+						<item><gi>item</gi> - označuje del seznama</item>
+						<item><gi>listBibl</gi> (citation list) - vsebuje seznam bibliografskih citatov</item>
+						<item><gi>bibl</gi> (bibliographic citation) - vsebuje strukturiran bibliografski citat</item>
+					</list>
+				</p>
+				<p>Element <gi>text</gi> mora vsebovati najman element <gi>body</gi>. Ta vsebuje glavni del izvornega besedila in druge označitve. Pred <gi>body</gi> elementom je pogosto element <gi>front</gi>.
+					Ta element se uporablja za označevanje uvodnih informacij besedil, ki so ločena od glavnega besedila. Osnovni primeri vsebujejo informacije o dokumentu, kot so naslov, avtorji, datumi, predgovori,
+					uvodi in druge uvodne vsebine. 
+					Najpogostejši elementi, ki jih najdemo v <gi>front</gi> so: <list>
+						<item><gi>titlePage</gi> - naslovna stran</item>
+						<item><gi>docTitle</gi> - naslov dokumenta</item>
+						<item><gi>titlePart</gi> - vsebuje del naslova besedila, kot je prikazano na naslovni strani. Z atributom <att>type</att> določimo vlogo elementa, ali je glavni naslov ali podnaslov.</item>
+						<item><gi>docAuthor</gi> - vsebuje ime avtorja dokumenta, kot je navedeno na naslovni strani</item>
+						<item><gi>docImprint</gi> - vsebuje navedbo impresuma (kraj in datum izida, ime založbe)</item>
+						<item><gi>docEdition</gi> - vsebuje podatek o izdaji</item>
+						<item><gi>docDate</gi> - vsebuje podatek o datumu izdaje</item>
+					</list>
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<front>
+							<titlePage>
+								<docTitle>
+									<titlePart type="main" xml:lang="en">Elementary and middle school textbooks between 1774 and 1918:</titlePart>
+									<titlePart type="sub" xml:lang="en">An annotated bibliography with supporting study</titlePart>
+								</docTitle>
+								<docAuthor>
+									<forename>Neja</forename>
+									<surname>Blaj Hribar</surname>
+								</docAuthor>
+								<graphic url="naslovnica.jpg"/>
+								<docImprint>
+									<publisher>Institute of Contemporary History</publisher>
+									<pubPlace>Ljubljana</pubPlace>
+									<docDate>2023</docDate>
+								</docImprint>
+							</titlePage>
+						</front>
+					</egXML>
+				</p>
+				<p>Vse gradivo, ki sledi glavnemu besedilu izvornega teksta, je lahko združeno v elementu <gi>back</gi>. To gradivo so lahko priloge, kazala, opombe, bibliografije, in so lahko znotraj posameznih
+				<gi>div</gi> elementov, ki jih ločimo z atributom <att>type</att> z vrednostmi <list>
+					<item><hi rend="italic">appendix</hi> - za priloge</item>
+					<item><hi rend="italic">glossary</hi> - seznam izrazov</item>
+					<item><hi rend="italic">notes</hi> - za zbrane opombe</item>
+					<item><hi rend="italic">bibliogr</hi> - za seznam bibliografije</item>
+					<item><hi rend="italic">index</hi> - kakršna koli oblika indeksa</item>
+					<item><hi rend="italic">colophon</hi> - kolofon</item>
+				</list>
+					<egXML xmlns="http://www.tei-c.org/ns/Examples"><back>
+							<div type="appendix" xml:id="acknw">
+								<head>Acknowledgements</head>
+								<p>The work described in this paper was funded by the Slovenian Research Agency research programme P6-0436: Digital Humanities: resources, tools,
+									and methods (2022- 2027)</p>
+							</div>
+							<div type="bibliogr" xml:id="bibl">
+								<head>References</head>
+								<listBibl>
+									<bibl>Abercrombie, G., &amp; Batista-Navarro, R. (2020). Sentiment and position-taking analysis of parliamentary debates...</bibl>
+									<bibl>Albalawi, R., Yeap, T. H., &amp; Benyoucef, M. (2020). Using topic modeling methods for short-text data...</bibl>
+								</listBibl>
+							</div>
+						</back></egXML></p>
+				<p>TEI XML elementi jo prav tako lahko atribute, ki podajajo dodatne informacije elemetom za opis njihovih lastnosti. V TEI XML imajo atributi pogosto specifičen namen, uporabljeni 
+					so kot na primer za označevanje jezika besedila, določanje vrste vsebine ali natančno določanje položaja v dokumentu. Nekateri pogosti atributi v TEI XML so:
+					<list>
+						<item><att>xml:id</att> - za dodajanje unikatnega identifikatorja elementu</item>
+						<item><att>n</att> (label) - elementu doda oznako (npr. številko) - element ni potrebno, da je edinstven znotraj dokumenta.</item>
+						<item><att>xml:lang</att> - za informacijo o uporabljenem jeziku</item>
+						<item><att>type</att> - za informacijo o vrsti besedila</item>
+						<item><att>rend</att> (rendition) - za informacije o obliki besedila</item>
+						<item><att>ana</att> (analysis) - povezovanje posebnih analiz ali interpretacij z ustreznimi deli besedila</item>
+					</list>
+				</p>
+				<p>Primer celotne strukture <gi>text</gi> elementa:
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<text>
+							<front>
+								<titlePage>
+									<docTitle>
+										<titlePart type="main" xml:lang="en">Elementary and middle school textbooks between 1774 and 1918:</titlePart>
+										<titlePart type="sub" xml:lang="en">An annotated bibliography with supporting study</titlePart>
+									</docTitle>
+									<docAuthor>
+										<forename>Neja</forename>
+										<surname>Blaj Hribar</surname>
+									</docAuthor>
+									<graphic url="naslovnica.jpg"/>
+									<docImprint>
+										<publisher>Institute of Contemporary History</publisher>
+										<pubPlace>Ljubljana</pubPlace>
+										<docDate>2023</docDate>
+									</docImprint>
+								</titlePage>
+							</front>
+							<body>
+								<div>
+									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima asperiores magni doloremque vel ab odio quidem eum cum natus fugit delectus
+										nobis nam modi placeat porro quisquam iste repudiandae. Facere. </p>
+									<p>Dolorem quasi nobis repellendus nihil molestiae vitae necessitatibus suscipit culpa totam magni. Natus sapiente dolores! Laborum facere ex
+										reprehenderit excepturi id voluptate laudantium pariatur voluptatibus aliquam delectus! Qui eveniet obcaecati? </p>
+									<p>Laborum nostrum omnis dignissimos ipsam fugiat eaque saepe similique laboriosam labore sit. Dolore tenetur illum praesentium laborum
+										quibusdam culpa omnis odio obcaecati corrupti ullam odit eum numquam laudantium excepturi fugit. </p>
+									<p>Ipsa quaerat porro reprehenderit dignissimos modi ut perferendis dolorum eius. Numquam iusto maiores ipsam sequi excepturi unde odio neque id
+										aliquid dignissimos sapiente vel dicta quibusdam laudantium magnam quaerat itaque? </p>
+								</div>
+							</body>
+							<back>
+								<div type="appendix">
+									<head>Acknowledgements</head>
+									<p>The work described in this paper was funded by the Slovenian Research Agency research programme P6-0436: Digital Humanities: resources,
+										tools, and methods (2022- 2027)</p>
+								</div>
+								<div type="bibliogr">
+									<head>References</head>
+									<listBibl>
+										<bibl>Abercrombie, G., &amp; Batista-Navarro, R. (2020). Sentiment and position-taking analysis of parliamentary debates...</bibl>
+										<bibl>Albalawi, R., Yeap, T. H., &amp; Benyoucef, M. (2020). Using topic modeling methods for short-text data...</bibl>
+									</listBibl>
+								</div>
+							</back>
+						</text>
+					</egXML>
+				</p>
+			</div>
+			<div xml:id="preface.2" type="preface">
+				<head>III. TEI Header</head>
+				<div xml:id="teiHeader">
+					<head>TEI Header</head>
+					<p>teiHeader je strukturirana komponenta xml dokumenta, ki vsebuje metapodatke o besedilu. Je ključen del dokumenta, saj omogoča razumljivost in uporabnost
+						besedil. Je glavni element za vse metapodatke, povezane z dokumentom Je prvi element v TEI dokumentu Vsebuje več podrejenih delov. Najpomembnejši so: <list>
+							<item><gi>fileDesc</gi></item>
+							<item><gi>encodingDesc</gi></item>
+							<item><gi>profileDesc</gi></item>
+							<item><gi>revisionDesc</gi></item>
+						</list>
+						Glava TEI oziroma <gi>teiHeader</gi> je obvezna in vsebuje opisne metainformacije o dokumentu. 
+							<egXML xmlns="http://www.tei-c.org/ns/Examples">
+								<TEI>
+									<!-- root element -->
+									<teiHeader>
+										<!-- obvezen element -->
+										<fileDesc> ... </fileDesc>
+										<!-- opcijski -->
+										<encodingDesc>...</encodingDesc>
+										<!-- opcijski -->
+										<profileDesc>...</profileDesc>
+										<!-- opcijski -->
+										<revisionDesc>...</revisionDesc>
+										<!-- opcijski -->
+									</teiHeader>
+									<text>...</text>
+								</TEI>
+							</egXML>
+					</p>
+					<div>
+						<head><gi>fileDesc</gi></head>
+						<p><gi>teiHeader</gi> vsebuje vsaj opis elektronske datoteke znotraj elementa <gi>fileDesc</gi>. Ta vsebuje opis datoteke, vključno z informacijami o
+							naslovu, avtorjih, izdajah itd. Ta element je sestavljen iz treh obveznih komponent: <gi>titleStmt</gi>, <gi>publicationStmt</gi> in
+								<gi>sourceDesc</gi>.
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+								<TEI>
+									<!-- ... -->
+									<teiHeader>
+										<!-- obvezni elementi -->
+										<fileDesc>
+											<titleStmt>
+												<title><!-- ... --></title>
+											</titleStmt>
+										</fileDesc>
+										<!-- ... -->
+									</teiHeader>
+								</TEI>
+						</egXML>
+							<list rend="numbered">
+								<item><gi>titleStmt</gi> - vsebuje naslov in povezanih osebah, ki so odgovorne za njegovo vsebino.<list>
+										<item>Vsebuje naslov elektronskega dela skupaj z eno ali več neobveznimi izjavami o odgovornosti <gi>respStmt</gi>, ki identificirajo
+											označevalca, urednika, avtorja, prevajalca ali druge odgovorne.</item>
+										<item>vsebuje lahko elemente <gi>title</gi> | <gi>author</gi> | <gi>editor</gi> | <gi>sponsor</gi> | <gi>funder</gi> | <gi>principal</gi> |
+												<gi>respStmt</gi> | <gi>resp</gi> | <gi>name</gi><lb/><lb/>Osnovni primer <gi>titleStmt</gi>:
+										
+										</item>
+									</list><egXML xmlns="http://www.tei-c.org/ns/Examples">
+											<titleStmt>
+												<title>Elementary and middle school textbooks between 1774 and 1918: An annotated bibliography with supporting study</title>
+												<author>
+													<forename>Neja</forename>
+													<surname>Blaj Hribar</surname>
+												</author>
+												<respStmt>
+													<resp>TEI encoding and publication on the Internet</resp>
+													<name>Mihael Ojsteršek</name>
+												</respStmt>
+											</titleStmt>
+										</egXML>
+								</item>
+								<item><gi>editionStmt</gi> - vsebuje informacije, ki se nanašajo na posamezno izdajo besedila.<list>
+										<item>vsebuje lahko elemente <gi>edition</gi> | <gi>respStmt</gi> | <gi>name</gi> | <gi>resp</gi>
+								</item>
+									</list><egXML xmlns="http://www.tei-c.org/ns/Examples">
+									<editionStmt>
+										<edition>Editon 1.0</edition>
+									</editionStmt>
+								</egXML>
+								</item>
+								<item><gi>publicationStmt</gi> - je obvezene element znotraj <gi>fileDesc</gi> in vsebuje infromacije, ki se nanašajo na objavo ali distribucijo
+									elektronskega ali drugega besedila. To vključuje podatke o založniku, kraju, datumu objave, načinu distribucije.<list>
+										<item>element mora vsebovati enega izmed elementov <gi>publisher</gi> | <gi>distributor</gi> | <gi>authority</gi>. </item>
+										<item>ne glede na izbrani element mu lahko sledijo elementi <gi>pubPlace</gi> | <gi>address</gi> | <gi>idno</gi> | <gi>availability</gi> |
+												<gi>date</gi> | <gi>licence</gi></item>
+									</list>
+								<egXML xmlns="http://www.tei-c.org/ns/Examples">
+									<publicationStmt>
+										<publisher>
+											<orgName xml:lang="sl">Inštitut za novejšo zgodovino</orgName>
+											<orgName xml:lang="en">Institute of Contemporary History</orgName>
+											<address>
+												<addrLine>Privoz 11</addrLine>
+												<addrLine>SI-1000 Ljubljana</addrLine>
+											</address>
+										</publisher>
+										<pubPlace>http://ojs.inz.si/pnz/article/view/4405</pubPlace>
+										<date>2023</date>
+										<availability status="free">
+											<licence>http://creativecommons.org/licenses/by-nc-nd/4.0/</licence>
+										</availability>
+									</publicationStmt>
+								</egXML></item>
+								<item><gi>seriesStmt</gi> - vsebuje informacije o seriji, kateri publikacija pripada. <list>
+										<item>lahko vsebuje elemente <gi>title</gi> | <gi>idno</gi> | <gi>respStmt</gi> | <gi>resp</gi> | <gi>name</gi></item>
+									</list>
+									<egXML xmlns="http://www.tei-c.org/ns/Examples">
+										<seriesStmt>
+											<title xml:lang="sl">Prispevki za novejšo zgodovino</title>
+											<title xml:lang="en">Contributions to Contemporary History</title>
+											<biblScope unit="volume">64</biblScope>
+											<biblScope unit="issue">3</biblScope>
+											<idno type="ISSN">2463-7807</idno>
+										</seriesStmt>
+									</egXML></item>
+								<item><gi>sourceDesc</gi> - opisuje vir, iz katerega je bilo elektronsko besedilo pridobljeno ali ustvarjeno. Pri digitaliziranih besedilih je to
+									običajno bibliografski opis. Pri ustvarjenih besedilih je lahko le informacija "born digital".
+								<egXML xmlns="http://www.tei-c.org/ns/Examples">
+									<sourceDesc>
+										<p>Born digital</p>
+									</sourceDesc>
+								</egXML></item>
+								<item><gi>extent</gi> - opisuje približno velikost besedila, shranjenega na nekem nosilcu.<list>
+										<item>na primer velikost na nosilcu (MB, GB) število besed v besedilu, znakov, strani, fizične dimenzijce</item>
+									</list></item>
+								<item><gi>notesStmt</gi> - vsebuje vse opombe, ki zagotavljajo dodatne informacije o besedilu, ki niso zajete v drugih delih bibliografske opredelitve.<list>
+										<item>vsebuje element <gi>note</gi> za označitev opombe</item>
+									</list></item>
+							</list> <hi rend="bold" style="font-size:16pt">Izmed vseh teh so obvezni <gi>titleStmt</gi>, <gi>publicationStmt</gi> in <gi>sourceDesc</gi></hi>
+						</p>
+					</div>
+					<div>
+						<head><gi>encodingDesc</gi></head>
+						<p>Element <gi>encodingDesc</gi> dokumentira razmerje med elektronskim besedilom in virom ali viri, iz katerih je bilo izpeljano. Določa metode in uredniška
+							načela, ki so vodila označevanje obravnavanega besedila. Omogoča podroben opis, ali (oziroma kako) je bilo besedilo normalizirano med transkripcijo, 
+							kako je označevalec razrešil dvoumnosti v izvoru, katere ravni kodiranja ali analize so bile uporabljene itd.
+							Je torej pojasnilo o kodiranju besedila, uporabljeni metodologiji in standardih.
+						</p>
+						<p>Ta element lahko vsebuje odstavke, označene le z elementom <gi>p</gi>, ali pa bolj namenske elemente kot sta na primer: 
+						<list>
+							<item><gi>projectDesc</gi> - Podrobno opisuje cilj ali namen, zaradi katerega je bila elektronska datoteka kodirana, skupaj z vsemi drugimi pomembnimi informacijami o postopku, s katerim je bila sestavljena ali zbrana.</item>
+<!--							<item><gi>samplingDecl</gi> - Vsebuje prozni opis utemeljitve in metod, uporabljenih pri izbiri besedil ali delov besedila za vključitev v vir.</item>-->
+							<item><gi>editorialDecl</gi> - Poda podrobnosti o uredniških načelih in praksah, ki so bile uporabljene med kodiranjem besedila.</item>
+<!--							<item><gi>tagsDecl</gi> - Vsebuje podrobne informacije o označevanju, ki je bilo uporabljeno v dokumentu.</item>-->
+<!--							<item><gi>styleDefDecl</gi> - Določa ime formalnega jezika, v katerem so drugje v dokumentu podane informacije o slogu ali upodobitvi. Lahko vsebuje tudi določeno različico sheme.</item>-->
+<!--							<item><gi>refsDecl</gi> - Določa način, kako so v tem besedilu sestavljene kanonične reference.</item>-->
+<!--							<item><gi>classDecl</gi> - Vsebuje eno ali več taksonomij, ki definirajo klasifikacijske kode, uporabljene drugje v besedilu.</item>-->
+<!--							<item><gi>geoDecl</gi> - Dokumentira notacijo in datum, uporabljen za geografske koordinate, ki so izražene v elementu <gi>geo</gi> znotraj dokumenta.</item>-->
+<!--							<item><gi>unitDecl</gi> - Poda informacije o enotah merjenja, ki niso člani Mednarodnega sistema enot (SI).</item>-->
+<!--							<item><gi>schemaSpec</gi> - Generira shemo, skladno s TEI, in ustrezno dokumentacijo zanjo.</item>-->
+<!--							<item><gi>schemaRef</gi> - Opisuje ali navaja povezavo do prilagojene sheme ali datoteke s shemo.</item>-->
+						</list>
+						</p>
+						<p>Najosnovneši primer <gi>encodingDesc</gi> z elementom <gi>projectDesc</gi></p>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<encodingDesc>
+								<projectDesc xml:lang="en">
+									<p>Contributions to Contemporary History is one of the central Slovenian scientific
+										historiographic journals, dedicated to publishing articles from the field of
+										contemporary history (the 19th and 20th century).</p>
+									<p>The journal is published three times per year in Slovenian and in the following
+										foreign languages: English, German, Serbian, Croatian, Bosnian, Italian, Slovak
+										and Czech. The articles are all published with abstracts in English and
+										Slovenian as well as summaries in English.</p>
+								</projectDesc>
+								<projectDesc xml:lang="sl">
+									<p>Prispevki za novejšo zgodovino je ena osrednjih slovenskih znanstvenih
+										zgodovinopisnih revij, ki objavlja teme s področja novejše zgodovine (19. in 20.
+										stoletje).</p>
+									<p>Revija izide trikrat letno v slovenskem jeziku in v naslednjih tujih jezikih:
+										angleščina, nemščina, srbščina, hrvaščina, bosanščina, italijanščina, slovaščina
+										in češčina. Članki izhajajo z izvlečki v angleščini in slovenščini ter povzetki
+										v angleščini.</p>
+								</projectDesc>
+							</encodingDesc>
+						</egXML>
+					</div>
+					<div>
+						<head><gi>profileDesc</gi></head>
+						<p>Element <gi>profileDesc</gi> je neobvezen element, namen katerega je omogočiti zapis informacij, ki opredeljujejo različne opisne vidike besedila. 
+							Zagotavlja podroben opis nebibliografskih vidikov besedila. 
+						</p>
+						<p>Vsebuje naslednje podrejene elemente:
+						<list>
+							<item><gi>abstract</gi> - vsebuje povzetek, ki ga je k obstoječemu izvirnemu dokumentu dodal označevalec.</item>
+							<item><gi>creation</gi> - Opisuje, kje, kdaj in kako je bilo besedilo ustvarjeno. Sem lahko vključimo čas in kraj nastanka ter avtorje ali druge ustvarjalce</item>
+							<item><gi>langUsage</gi> - v tem elementu navedemo jezike, narečja itd., ki se pojavijo v besedilu.</item>
+							<item><gi>textClass</gi> - omogoča opredelitev teme ali zvrst, glede na standardno klasifikacijsko shemo ipd.</item>
+							<item><gi>correspDesc</gi> - vsebuje opis dejanj, povezanih z označevanjem korespondence (npr. pisanje, pošiljanje, prejemanje pisem).</item>
+							<item><gi>calendarDesc</gi> - uporabimo, če se v besedilu pojavijo datacije, zapisane po posebnem koledarskem sistemu (npr. julijski koledar).</item>
+						</list>
+						Ti elementi omogočajo zajem informacij, ki pomagajo razumeti ozadje, jezikovne značilnosti in namen besedila. Uporaba teh elementov je prilagodljiva, vključimo lahko le tiste,
+						ki jih potrebujemo za specifičen projekt.
+						</p>
+						<p>
+							V TEI glavi je v zgodovinskih besedilih in njihovih korpusih elementu <gi>profileDesc</gi> pogosto podrejen tudi element <gi>particDesc</gi>. Ta je namenjen opisovanju udeležencev v izvornem
+							besedilu, ki so povezani z njegovim nastankom, uporabo ali vsebino. Pomemeben je za označevanje besedil, kjer je vključenih več posameznikov ali skupin.  
+							<gi>particDesc</gi> vsebuje seznam oseb <gi>listPerson</gi>, ki lahko vsebuje elementa <gi>person</gi> in <gi>personGrp</gi> elementov za določjive osebe znotraj vira in seznam organizacij <gi>listOrg</gi>.
+							<lb/><lb/>Primer uporabe <gi>particDesc</gi> je <ref target="http://hdl.handle.net/11356/1936">označevanje parlamentarnih sej DZ</ref>:
+							<egXML xmlns="http://www.tei-c.org/ns/Examples">								
+								<particDesc>
+									<listOrg>
+										<head>Seznam organizacij</head>
+										<org xml:id="cl.DEMOS" role="coalition">
+											<orgName full="yes" xml:lang="sl">Demokratična opozicija Slovenije</orgName>
+											<orgName full="yes" xml:lang="en">Democratic Opposition of Slovenia</orgName>
+											<orgName full="init">DEMOS</orgName>
+											<event from="1989-11-27" to="1991-12-30">
+												<label xml:lang="en">existence</label>
+											</event>
+											<idno type="URI" subtype="wikimedia" xml:lang="sl">https://sl.wikipedia.org/wiki/DEMOS</idno>
+											<idno type="URI" subtype="wikimedia" xml:lang="en">https://en.wikipedia.org/wiki/Democratic_Opposition_of_Slovenia</idno>
+										</org>
+									</listOrg>
+									<listPerson>
+										<head xml:lang="sl">Seznam govornikov</head>
+										<person xml:id="BučarFrance">
+											<persName>
+												<surname>Bučar</surname>
+												<forename>France</forename>
+												<roleName>dr.</roleName>
+											</persName>
+											<sex value="M"/>
+											<birth when="1923-02-02">
+												<placeName ref="https://www.geonames.org/3203808">Bohinjska Bistrica</placeName>
+											</birth>
+											<affiliation role="MP" ref="#DruzPolZb" from="1990-05-08" to="1992-12-22" ana="#SK.11"/>
+											<idno type="URI" subtype="wikimedia" xml:lang="sl">https://sl.wikipedia.org/wiki/France_Bu%C4%8Dar</idno>
+										</person>
+									</listPerson>
+								</particDesc>
+							</egXML>
+						</p>
+					</div>
+					<div>
+						<head><gi>revisionDesc</gi></head>
+						<p><gi>revisionDesc</gi> je zadnji element v <gi>teiHeader</gi>, ki je namenjen zapisovanju dnevnika sprememb, kjer se beležijo vse spremembe 
+							znotraj besedila. Uporaba tega elementa zagotavlja preglednost pri upravljanju večjega števila datotek, ki se sproti posodabljajo, popravljajo
+							ali drugače spreminjajo. Datoteke lahko tudi prehajajo med raziskovalci in označevalci, zato element lahko dokumentacijski vir. Brez tega zapisa
+							lahko pride do zmede med različicami datoteke. Ključni elementi so <list>
+								<item><gi>revisionDesc</gi> - je opis revizij in zagotavlja pregled zgodovine sprememb določene datoteke.</item>
+								<item><gi>listChange</gi> - je seznam sprememb, ki združuje več opisov sprememb, ki so povezane ali z ustvarjanjem ali naknadnim spreminjanje 
+								izvornega besedila.</item>
+								<item><gi>change</gi>, oziroma sprememba, beleži posamezno spremembo ali niz sprememb, narejenih med pripravo izvornega dokumenta ali 
+									kasnejšo revizijo elektronske različice. Vsebuje tudi datum, avtorja in opis spremembe.</item>
+							</list>
+						</p>
+					</div>
+					<div>
+						<head>Nekaj primerov <gi>teiHeader</gi></head>
+						<figure>
+							<head>Primer Foglarjeva pesmarica, Elektronska znanstvenokritična izdaja</head>
+							<graphic url="slike/teiHeader.png"></graphic>
+						</figure>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<teiHeader>
+								<fileDesc>
+									<titleStmt>
+										<title>Foglarjeva pesmarica</title>
+										<title>Editio princeps</title>
+										<title>Elektronska znanstvenokritična izdaja</title>
+										<respStmt>
+											<resp>Diplomatični prepis, kritični aparat, kritični prepis, opombe in komentar</resp>
+											<name>Nina Ditmajer</name>
+										</respStmt>
+										<respStmt>
+											<resp>Uredila</resp>
+											<name xml:id="NDI">Nina Ditmajer</name>
+										</respStmt>
+										<respStmt>
+											<resp>Strokovni pregled</resp>
+											<name>Natalija Ulčnik</name>
+											<name>Luka Vidmar</name>
+										</respStmt>
+										<respStmt>
+											<resp>Prevod povzetkov</resp>
+											<name xml:id="MŠO">Mojca Šorli</name>
+											<name xml:id="AHA">Ana Habjan</name>
+										</respStmt>
+										<respStmt>
+											<resp>Redakcija zapisa TEI</resp>
+											<name xml:id="TER">Tomaž Erjavec</name>
+										</respStmt>
+										<respStmt>
+											<resp>Pretvorba v XHTML, postavitev na splet</resp>
+											<name xml:id="APA">Andrej Pančur</name>
+										</respStmt>
+										<respStmt>
+											<resp>Fotografije rokopisa</resp>
+											<name xml:id="MZA">Marko Zaplatil</name>
+										</respStmt>
+										<respStmt>
+											<resp>Pri urejanju sodeloval</resp>
+											<name xml:id="MOG">Matija Ogrin</name>
+										</respStmt>
+									</titleStmt>
+									<editionStmt>
+										<edition>Objava 1.0</edition>
+									</editionStmt>
+									<extent>792,5 kB Mb XML; celoten obseg besedila: 277.440 znakov; obseg besedila v študijah
+										(brez tekstnokritičnega aparata): 154.629 znakov.</extent>
+									<publicationStmt>
+										<publisher>Založba ZRC, ZRC SAZU</publisher>
+										<authority>Inštitut za slovensko literaturo in literarne vede, ZRC SAZU</authority>
+										<date when="2021-01-28">2021-01-28</date>
+										<pubPlace>Ljubljana</pubPlace>
+										<availability>
+											<p xml:lang="sl">Avtorske pravice za besedilo te izdaje določa licenca Creative Commons
+												Priznanje avtorstva–Brez predelav–Nekomercialno 4.0: <ref target="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-ND-NC 4.0</ref>
+											</p>
+											<p xml:lang="en">Licenced under Creative Commons Attribution-NonCommercial-NoDerivatives
+												4.0: <ref target="https://creativecommons.org/licenses/by-nd-nc/4.0/">CC BY-ND-NC
+													4.0</ref>
+											</p>
+										</availability>
+										<idno type="ISBN">978-961-05-0514-3 (html)</idno>
+									</publicationStmt>
+									<sourceDesc>
+										<p>Elektronska izdaja je pripravljena po izvirniku, ki ga hrani Narodna in univerzitetna
+											knjižnica (NUK R 281102) in je z opisom in digitalnim faksimilom predstavljen v
+											<hi>Registru slovenskih rokopisov 17. in 18. stoletja</hi> (NRSS, Ms <ref target="http://ezb.ijs.si/fedora/get/nrss:nrss_ms_123/VIEW/">123</ref>).</p>
+									</sourceDesc>
+								</fileDesc>
+								<profileDesc>
+									<abstract xml:lang="sl">
+										<p>Foglarjev rokopis je baročna romarska pesmarica, ki je nastala na Spodnjem Štajerskem
+											med letoma 1757 in 1762.<!-- ... --></p>
+									</abstract>
+									<abstract xml:lang="en">
+										<p>Foglar’s manuscript is a Baroque pilgrimage hymnal composed in Lower Styria between 1757 and 1762.<!-- ... --></p>
+									</abstract>
+									<textClass>
+										<keywords xml:lang="sl">
+											<term>pesmarice</term>
+											<term>rokopisi</term>
+											<term>barok</term>
+											<term>slovenska književnost</term>
+											<term>Lovrenc Foglar</term>
+										</keywords>
+										<keywords xml:lang="en">
+											<term>hymnals</term>
+											<term>manuscripts</term>
+											<term>Baroque</term>
+											<term>Slovenian literature</term>
+											<term>Lovrenc Foglar</term>
+										</keywords>
+									</textClass>
+									<langUsage>
+										<language ident="sl">slovenščina</language>
+										<language ident="la">latinščina</language>
+									</langUsage>
+								</profileDesc>
+								<revisionDesc xmlns:tei="http://www.tei-c.org/ns/1.0">
+									<change when="2021-02-02">
+										<name>Andrej Pančur</name> dodal divGen za sidih izdajo.</change>
+									<change when="2021-02-02">
+										<name>Andrej Pančur</name> dodal @xml:id in @n.</change>
+								</revisionDesc>
+							</teiHeader>
+						</egXML>
+						<p>Primer <gi>teiHeader</gi> članka v serijski publikaciji</p>
+						<figure>
+							<head><ref target="https://ojs.inz.si/pnz/issue/view/18">Prispevki za novejšo zgodovino, Letn. 59, št. 1 (2019): Digital Humanities and Language Technologies</ref></head>
+							<graphic url="slike/coverPNZ.jpg" height="250px"></graphic>
+						</figure>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<teiHeader>
+								<fileDesc>
+									<titleStmt>
+										<title>Sustainability of Digital Editions: Static Websites of the History of
+											Slovenia – SIstory Portal</title>
+										<author>
+											<name>
+												<forename>Andrej</forename>
+												<surname>Pančur</surname>
+												<affiliation>Institute of Contemporary History</affiliation>
+											</name>
+										</author>
+									</titleStmt>
+									<editionStmt>
+										<edition><date>2019-04-15</date></edition>
+									</editionStmt>
+									<publicationStmt>
+										<publisher>
+											<orgName xml:lang="sl">Inštitut za novejšo zgodovino</orgName>
+											<orgName xml:lang="en">Institute of Contemporary History</orgName>
+											<address>
+												<addrLine>Kongresni trg 1</addrLine>
+												<addrLine>SI-1000 Ljubljana</addrLine>
+											</address>
+										</publisher>
+										<pubPlace>http://ojs.inz.si/pnz/article/view/348</pubPlace>
+										<date>2019</date>
+										<availability status="free">
+											<licence>http://creativecommons.org/licenses/by-nc-nd/4.0/</licence>
+										</availability>
+									</publicationStmt>
+									<seriesStmt>
+										<title xml:lang="sl">Prispevki za novejšo zgodovino</title>
+										<title xml:lang="en">Contributions to Contemporary History</title>
+										<biblScope unit="volume">59</biblScope>
+										<biblScope unit="issue">1</biblScope>
+										<idno type="ISSN">2463-7807</idno>
+									</seriesStmt>
+									<sourceDesc>
+										<p>No source, born digital.</p>
+									</sourceDesc>
+								</fileDesc>
+								<encodingDesc>
+									<projectDesc xml:lang="en">
+										<p>Contributions to Contemporary History is one of the central Slovenian scientific
+											historiographic journals, dedicated to publishing articles from the field of
+											contemporary history (the 19th and 20th century).</p>
+										<p>The journal is published three times per year in Slovenian and in the following
+											foreign languages: English, German, Serbian, Croatian, Bosnian, Italian, Slovak
+											and Czech. The articles are all published with abstracts in English and
+											Slovenian as well as summaries in English.</p>
+									</projectDesc>
+									<projectDesc xml:lang="sl">
+										<p>Prispevki za novejšo zgodovino je ena osrednjih slovenskih znanstvenih
+											zgodovinopisnih revij, ki objavlja teme s področja novejše zgodovine (19. in 20.
+											stoletje).</p>
+										<p>Revija izide trikrat letno v slovenskem jeziku in v naslednjih tujih jezikih:
+											angleščina, nemščina, srbščina, hrvaščina, bosanščina, italijanščina, slovaščina
+											in češčina. Članki izhajajo z izvlečki v angleščini in slovenščini ter povzetki
+											v angleščini.</p>
+									</projectDesc>
+								</encodingDesc>
+								<profileDesc>
+									<langUsage>
+										<language ident="sl"/>
+										<language ident="en"/>
+									</langUsage>
+									<textClass>
+										<keywords xml:lang="en">
+											<term>digital editions</term>
+											<term>digital curation</term>
+											<term>TEI</term>
+											<term>XSLT</term>
+											<term>static website</term>
+										</keywords>
+										<keywords xml:lang="sl">
+											<term>digitalne izdaje</term>
+											<term>digitalno kuratorstvo</term>
+											<term>TEI</term>
+											<term>XSLT</term>
+											<term>statične spletne strani</term>
+										</keywords>
+									</textClass>
+								</profileDesc>
+								<revisionDesc>
+									<listChange>
+										<change>
+											<date>2019-06-07</date>
+											<name>Mihael Ojsteršek</name>
+											<desc>Pretvorba iz DOCX v TEI, dodatno kodiranje</desc>
+										</change>
+									</listChange>
+								</revisionDesc>
+							</teiHeader>
+						</egXML>
+					</div>
+				</div>
+			</div>
+			<div xml:id="preface.3" type="preface">
+				<head>IV. Proza</head>
+				<p>Kot pri vseh vrstah besedil ima proza prav tako svojo strukturo in določen pomen. Smernice TEI nimajo posebaj posvečenega modula za prozo.</p>
+				<div>
+					<figure rend="imageviewer" xml:id="figure-1" n="1">
+						<head>primer teksta v .docx</head>
+						<graphic url="slike/1_primer_besedila.png1_primer_besedila.png"/>
+						<graphic url="slike/1_primer_besedila-normal.png"/>
+						<graphic url="slike/1_primer_besedila-thumb.png"/>
+					</figure>
+					<head>Osnovni strukturni elementi</head>
+					<p>Telo <gi>body</gi> proznega besedila je lahko le niz odstavkov ali pa so ti odstavki združeni v poglavja, razdelke, pododdelke itd. Vsak odstavek je označen
+						z oznako <gi>p</gi>. Element <gi>div</gi> se uporablja za predstavitev katerega koli takega združevanja odstavkov. Osnovni elementi strukture proznega
+						besedila so lahko še <list>
+							<item><gi>head</gi></item>
+							<item><gi>list</gi></item>
+							<item><gi>q</gi></item>
+							<item><gi>quote</gi></item>
+							<item><gi>said</gi></item>
+							<item><gi>cit</gi></item>
+							<item><gi>figure</gi></item>
+							<item><gi>graphic</gi></item>
+							<item><gi>table</gi></item>
+						</list>
+					</p>
+					<div>
+						<head>Odstavki <gi>p</gi></head>
+						<p><gi>p</gi> oz. <hi rend="italic">paragraph</hi> označuje odstavke v prozi. Število odstavkov je odvisno od teksta samega. Odstavkov ne moremo gnezditi
+							temveč so lahko na isti ravnini.</p>
+						<!--
+                                        <p>TEI element <gi>p</gi> se lahko uporablja tudi za kodiranje proznih delov v besedilih vseh žanrov</p>-->
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<p>Za Slovenijo, takratno Dravsko banovino, se je druga svetovna vojna začela po napadu sil osi na Kraljevino Jugoslavijo 6. aprila 1941. Oglušujoči
+								krik: »Vojna!« je prestrašil tiste, ki se jim je zdelo mogoče, da ta lahko doseže tudi slovenske kraje, še bolj pa tiste, ki na to sploh niso
+								računali.</p>
+							<p>Za Slovenijo v letih 1941–1945 je v prvi vrsti »značilno nasilje okupatorjev nad prebivalstvom, ki se je jasno izrisalo na vseh področjih javnega
+								življenja, višek pa je doseglo v fizičnem terorju. Represivnih ukrepov so se posluževali vsi okupatorji, saj so računali, da bodo po taki poti čim
+								hitreje in kar se da uspešno izpeljali načrtovano raznarodovanje oziroma 'smrt' slovenskega naroda in priključitev okupiranega, geopolitično zelo
+								privlačnega slovenskega ozemlja k svojim državam.</p>
+							<p>Pisateljica in pesnica Berta Golob je zapisala: »V praskah, spopadih, vojskah in svetovnem klanju je toliko vsakovrstnih žrtev, da jih ni možno
+								prešteti. Laže bi ujeli v številke one, ki jih med vojno vojna ni z ničimer zaznamovala.«<note place="foot" xml:id="ftn1" n="1">Berta Golob,
+									»Iskreno in pogumno,« v: France Žagar, <hi rend="italic">Vojna, kaj pa je to? </hi>(Ljubljana: samozaložba, 2003), 5.</note></p></egXML>
+						<p>Obstajajo lahko konteksti, v katerih kodirnik ne želi uporabiti <gi>p</gi> ​​za kodiranje enot besedil, ki so analogna odstavkom. Za kodiranje tako
+							imenovanih "anonimnih blokov" besedila lahko uporabite element <gi>ab</gi>. Ta je lahko koristen za kodiranje katere koli enote besedila s strukturo,
+							podobno odstavku, za katero ni definirana nobena druga bolj specifična ustrezna oznaka ali ki ji kodirnik ne želi dodati posebnega pomena.</p>
+					</div>
+					<div>
+						<head>Razdelki <gi>div</gi></head>
+						<p><gi>div</gi> oz. <hi rend="italic">division</hi> označuje razdelke znotraj besedila. Znotraj teh razdelkov je mogoče združiti več odstavkov <gi>p</gi>.
+							Elementi <gi>div</gi> se lahko hierarhično ugnezdijo, znotraj elementa imamo lahko poljubno število elementov <gi>div</gi>. Za razlikovanje med razdelki
+							lahko dodamo elementu tudi atribut <att>type</att>, s katerim označimo poglavja, sekcije in podsekcije na način kot jih je oblikoval avtor.
+								<gi>div</gi> lahko tudi dodajamo oštevilčenje z atributom <att>n</att>, ki ga lahko uporabimo za prepis oštevilčenja v izvornem besedilu ali za
+							obogatitev prepisa.</p>
+						<p/>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<body>
+								<!-- vsebina pred poglavjem -->
+								<div type="chapter" n="2">
+									<head>2. Poglavje</head>
+									<div type="subchapter" n="2.1">
+										<head>2.1. podpoglavje</head>
+										<p>Predstavljene so žrtve glede na vzrok smrti:</p>
+										<!-- ... -->
+									</div>
+									<div type="subchapter" n="2.2">
+										<head>2.2. podpoglavje</head>
+										<p>
+											<!-- ... -->
+										</p>
+									</div>
+								</div>
+								<!-- vsebina za poglavjem -->
+							</body>
+						</egXML>
+						<p>Pred razdelki <gi>div</gi> lahko postavimo <gi>p</gi>, medtem ko ti ne morejo slediti <gi>div</gi> oziroma se pojavljati med njimi.</p>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<p>Za Slovenijo, takratno Dravsko banovino, se je druga svetovna vojna začela po napadu sil osi na Kraljevino Jugoslavijo 6. aprila 1941. Oglušujoči
+								krik: »Vojna!« je prestrašil tiste, ki se jim je zdelo mogoče, da ta lahko doseže tudi slovenske kraje, še bolj pa tiste, ki na to sploh niso
+								računali.</p>
+							<div>Za Slovenijo v letih 1941–1945 je v prvi vrsti »značilno nasilje okupatorjev nad prebivalstvom, ki se je jasno izrisalo na vseh področjih javnega
+								življenja, višek pa je doseglo v fizičnem terorju. Represivnih ukrepov so se posluževali vsi okupatorji, saj so računali, da bodo po taki poti čim
+								hitreje in kar se da uspešno izpeljali načrtovano raznarodovanje oziroma 'smrt' slovenskega naroda in priključitev okupiranega, geopolitično zelo
+								privlačnega slovenskega ozemlja k svojim državam.</div>
+							<!-- naslednji div -->
+						</egXML>
+					</div>
+					<div>
+						<head>Naslovi <gi>head</gi></head>
+						<p>Naslove označimo z elementom <gi>head</gi>, ki je lahko na začetku katerega koli razdelka na kateri koli ravni. Tudi naslovom je mogoče dodati atribut
+								<att>type</att> z vrednostjo, ki ustreza izvornemu besedilu.</p>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<head type="mainTitle">Spomini še živijo</head>
+							<div>
+								<head type="subTitle">1. poglavje</head>
+								<p>Za Slovenijo, takratno Dravsko banovino, se je druga svetovna vojna začela po napadu sil osi na Kraljevino Jugoslavijo 6. aprila 1941. Oglušujoči
+									krik: »Vojna!« je prestrašil tiste, ki se jim je zdelo mogoče, da ta lahko doseže tudi slovenske kraje, še bolj pa tiste, ki na to sploh niso
+									računali. </p>
+								<!-- ... -->
+							</div>
+						</egXML>
+					</div>
+					<div>
+						<head>Seznami <gi>list</gi></head>
+						<p>Element za označevanje seznama <gi>list</gi> se lahko uporablja za označevanje katerega koli seznama, ki vsebujejo enega ali več elementov <gi>item</gi>.
+							Elementi seznama so lahko oblikovani na različne načine - lahko so oštevilčeni, označeni s črkami, pikami ali pa so neoznačeni. Oblikovanje je mogoče
+							zapisati znotraj atributa <att>rend</att> v elementu <gi>list</gi></p>
+						<p>Znotraj elementa <gi>list</gi> so najpogosteje elementi <list>
+								<item><gi>head</gi></item>
+								<item><gi>item</gi></item>
+								<item><gi>label</gi></item>
+								<item><gi>headItem</gi></item>
+							</list> Najpogostejše vrednosti atributa <att>rend</att> so <list>
+								<item><hi rend="italic">bulleted</hi> - za elemente, pred katerimi so točke oz. podobne oznake </item>
+								<item><hi rend="italic">numbered</hi> - za oštevilčene sezname</item>
+								<item><hi rend="italic">inline</hi> - za sezname znotraj teksta, v neprekinjeni prozi brez prelomov vrstice</item>
+								<item><hi rend="italic">simple</hi> - za sezname brez posebnih stilskih lastnosti in oblikovanja</item>
+							</list>
+						</p>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<list type="bulleted">
+								<!-- ... -->
+								<item>Nesreča, povezana z vojnimi dogodki</item>
+								<item>V taborišču in zaradi njega</item>
+								<item>V izgnanstvu</item>
+								<item>Zaradi različnih posledic, povezanih z vojno</item>
+								<item>Pogrešani</item>
+								<item>V bombardiranjih</item>
+								<item>V povojnih pobojih</item>
+							</list>
+							<!-- oštevilčen -->
+							<list type="numbered">
+								<item>1. Nesreča, povezana z vojnimi dogodki</item>
+								<item>2. V taborišču in zaradi njega</item>
+								<!-- ... -->
+							</list>
+						</egXML>
+						<p>Odvisno od projekta se številke v oštevilčenem seznamu lahko označijo z elementom <gi>label</gi> ali atributom <att>n</att>. Tudi pri seznamih lahko
+							imamo naslove <gi>head</gi>
+							<egXML xmlns="http://www.tei-c.org/ns/Examples">
+								<list type="numbered">
+									<!-- oštevilčen @n z naslovom-->
+									<head>Predstavljene so žrtve glede na vzrok smrti:</head>
+									<item n="1">Nesreča, povezana z vojnimi dogodki</item>
+									<item n="2">V taborišču in zaradi njega</item>
+									<!-- ... -->
+								</list>
+								<!-- oštevilčen <label> z naslovom -->
+								<list type="numbered">
+									<head>Predstavljene so žrtve glede na vzrok smrti:</head>
+									<label>1.</label>
+									<item>Nesreča, povezana z vojnimi dogodki</item>
+									<label>2.</label>
+									<item n="2">V taborišču in zaradi njega</item>
+									<!-- ... -->
+								</list>
+							</egXML>
+						</p>
+					</div>
+					<div>
+						<head>Citati</head>
+						<p>Pomembno je ločiti med vsebino citata (kot so neposreden govor ali citati iz drugih virov) in načinom, kako je ta vsebina prikazana (npr. z narekovaji).
+							Pogledali si bomo naslednje elemente: <list>
+								<item><gi>q</gi> za besedilo, ločeno od ostalega besedila z narekovaji</item>
+								<item><gi>said</gi> za misli ali izrečene besede</item>
+								<item><gi>quote</gi> za citate, fraze ali odlomke, ki jih avtor navaza iz drugih del.</item>
+								<item><gi>cit</gi> za citate iz nekega drugega dokumenta, skupaj z biblografsko referenco na njegov vir.</item>
+							</list> Uporaba narekovajev v besedilu lahko označuje neposredni ali posredni govor, misel, strokovni izraz, žargon, besedne zveze ali besedilo, ki ga
+							avtor pripiše nekomu drugemu. Način, kako obravnavati narekovaje v citiranem besedilu, določa uredniška politika.</p>
+						<p/>
+						<p>Element <gi>q</gi> se lahko uporablja za označevanje vseh vrst citatov, kadar ni potrebna razločitev med različnimi vrstami. Od ostalega teksta se loči z
+							narekovaji ali drugimi podobnimi oznakami.</p>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<body>
+								<!-- primer <q> quoted za označevanje govora ali misli-->
+								<!-- ... -->
+								<p>Za Slovenijo, takratno Dravsko banovino, se je druga svetovna vojna začela po napadu sil osi na Kraljevino Jugoslavijo 6. aprila 1941. Oglušujoči
+									krik: <q>»Vojna!«</q> je prestrašil tiste, ki se jim je zdelo mogoče, da ta lahko doseže tudi slovenske kraje, še bolj pa tiste, ki na to sploh
+									niso računali.</p>
+								<p>Za Slovenijo v letih 1941–1945 je v prvi vrsti <q>»značilno nasilje okupatorjev nad prebivalstvom, ki se je jasno izrisalo na vseh področjih
+										javnega življenja, višek pa je doseglo v fizičnem terorju. Represivnih ukrepov so se posluževali vsi okupatorji, saj so računali, da bodo po
+										taki poti čim hitreje in kar se da uspešno izpeljali načrtovano raznarodovanje oziroma 'smrt' slovenskega naroda in priključitev
+										okupiranega, geopolitično zelo privlačnega slovenskega ozemlja k svojim državam.«</q></p>
+								<!-- ... -->
+							</body>
+						</egXML>
+						<p>Element <gi>said</gi> je bolj ekspliciten, z njim lahko označujemo govor ali misli in omogoča jasno ločitev od drugega citiranega teksta. Pogosto ima
+							element atributa <att>aloud</att> in <att>direct</att>. <att>aloud</att> se lahko uporablja za informacijo, ali je citiran odlomek neposredni ali
+							posredni govor (vsebina izgovorjena na glas ali ne), <att>direct</att> pa se uporablja za informacijo, ali je bila vsebina podana neposredno ali
+							posredno. Vrednosti obeh atributov so lahko <hi rend="italic">"true", "false", "unknown"</hi> in <hi rend="italic">"innaplicable"</hi>.</p>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<body>
+								<!-- primer <said> -->
+								<!-- ... -->
+								<p>Za Slovenijo, takratno Dravsko banovino, se je druga svetovna vojna začela po napadu sil osi na Kraljevino Jugoslavijo 6. aprila 1941. Oglušujoči
+									krik: <said direct="true" aloud="true">»Vojna!«</said> je prestrašil tiste, ki se jim je zdelo mogoče, da ta lahko doseže tudi slovenske kraje,
+									še bolj pa tiste, ki na to sploh niso računali.</p>
+								<p>Za Slovenijo v letih 1941–1945 je v prvi vrsti <said direct="true" aloud="false">»značilno nasilje okupatorjev nad prebivalstvom, ki se je jasno
+										izrisalo na vseh področjih javnega življenja, višek pa je doseglo v fizičnem terorju. Represivnih ukrepov so se posluževali vsi okupatorji,
+										saj so računali, da bodo po taki poti čim hitreje in kar se da uspešno izpeljali načrtovano raznarodovanje oziroma 'smrt' slovenskega naroda
+										in priključitev okupiranega, geopolitično zelo privlačnega slovenskega ozemlja k svojim državam.«</said></p>
+								<!-- ... -->
+							</body>
+						</egXML>
+						<p>V primeru, da je besedilo dobesedno povzeto iz drugega vira - bodisi pisnega ali govorjenega - je primernejše uporabiti element <gi>quote</gi>. Uporablja
+							se za odlomke iz drugih dokumentov, govorov, literarnih del ali drugih virov.</p>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<body>
+								<!-- primer <quote> -->
+								<!-- ... -->
+								<p>Razsežnost slabih razmer italijanskih taborišč nazorno ilustrira spis z naslovom <hi rend="italic">Umrl mi je ata</hi>: <quote>»Res je bilo hudo
+										na Rabu, ko nas je voda zalivala in ko sem bil takrat hudo lačen. Ali še bolj sem bil žalosten za sestrico Danico in za ata, ko sta oba od
+										lakote umrla na Rabu. Ko sem zvedel sem milo jokal. Tako sem še majhen, pa nimam več ata. Zapustil je našo ubogo mamo in 6 revčkov. Naj lepo
+										počiva v tuji rabski zemlji. Kadar bo mir pojdem na njegov grob.«</quote></p>
+								<!-- ... -->
+							</body>
+						</egXML>
+						<p><gi>cit</gi> se uporablja za kompleksnejše citate, katerim želimo dodati bibliografske informacije, kot so avtor, naslov ali stran. Najpogosteje vsebuje
+							elemente <gi>quote</gi>, <gi>ref</gi> in <gi>bibl</gi>. </p>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<body>
+								<!-- primer <cit> z elementoma <quote> in <bibl> -->
+								<!-- ... -->
+								<p>Pisateljica in pesnica Berta Golob je zapisala: <cit>
+										<quote>»V praskah, spopadih, vojskah in svetovnem klanju je toliko vsakovrstnih žrtev, da jih ni možno prešteti. Laže bi ujeli v številke
+											one, ki jih med vojno vojna ni z ničimer zaznamovala.« <bibl>Berta Golob, »Iskreno in pogumno,« v: France Žagar, <hi rend="italic"
+													>Vojna, kaj pa je to?</hi> (Ljubljana: samozaložba, 2003), 5.</bibl>
+										</quote>
+									</cit>
+								</p>
+								<!-- ... -->
+							</body>
+						</egXML>
+						<p>Kako obravnavamo posamezne narekovaje v citiranem besedilu je določeno z uredniško politiko.</p>
+					</div>
+					<div>
+						<head>Bibligrafske reference</head>
+						<p>Smernice TEI omogočajo označevanje bibliografskih informacij na več načinov. Uporaba določenih elementov je odvisna od zahtevanih podrobnosti
+							bibliografskega opisa. Elementi, ki se uporabljajo za bibliografski opis so <list>
+								<item><gi>bibl</gi><p>se uporablja za splošen bibliografski opis</p></item>
+								<item><gi>biblStruct</gi><p>za strukturiran bibliografski opis</p></item>
+								<item><gi>biblFull</gi><p>za popolnoma strukturiran biblografski opis, v katerem so prisotne vse komponente opisa TEI datoteke</p></item>
+							</list>
+						</p>
+						<p>Bibliografski opisi so lahko združeni v elementu <gi>listBibl</gi></p>
+						<p>Element <gi>bibl</gi>, uporabljen že v prejšnjem primeru, je najenostavnejša oblika kodiranja bibliografske reference. To je ohlapen bibliografski opis,
+							ki je sestavljen iz nestrukturiranega navadnega besedila. </p>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<body>
+								<!-- primer <bibl> -->
+								<!-- ... -->
+								<bibl>Berta Golob, »Iskreno in pogumno,« v: France Žagar, <hi rend="italic">Vojna, kaj pa je to?</hi> (Ljubljana: samozaložba, 2003), 5.</bibl>
+								<!-- ... -->
+							</body>
+						</egXML>
+						<p>V primerih, ko želimo bibliografskim informacijam oziroma enotam dati več strukture in podrobnosti se uporabi element <gi>biblStruct</gi>. Namenjen je
+							strukturiranemu opisu enega bibliografskega vira - na primer knjige, članka, poglavja, spletne strani. Njegova struktura omogoča hierarhično
+							organiziranje podatkov kot so naslov, avtor, založnik, leto izdaje, kraj izdaje itd. Glavni elementi <gi>biblStruct</gi> so <list>
+								<item><gi>monogr</gi><p>vsebuje bibliografske elemente, ki opisujejo enoto (npr. knjigo ali revijo), objavljeno kot samostojno enoto</p></item>
+								<item><gi>title</gi><p>vsebuje naslov za kakršno koli delo. z atributom <att>level</att> označujemo biblografsko raven za naslov, pri kateremu gre
+										za članek, knjigo, revijo, serijo ali neobjavljeno gradivo. Vrednosti atributa so <list rend="numbered">
+											<item>a (analytic) - označuje analitični naslov, ki se nanaša na posamezen del večje enote, npr. poglavje, članek ali pesem v
+												zbirki.</item>
+											<item>m (monographic) - naslov se nanaša na monografijo, kot npr. knjiga ali druga publikacije, vključno z posameznimi zvezki znotraj
+												zbirk.</item>
+											<item>j (journal) - označuje naslov katerekoli serijske ali periodične publikacije, npr. revija, časopis.</item>
+											<item>s (series) - označuje naslov na serijo sicer ločenih publikacij, npr. zbirka.</item>
+											<item>u (unpublished) - naslov označuje katerokoli neobjavljeno delo</item>
+										</list></p></item>
+								<item><gi>imprint</gi><p>običajno znotraj elementa <gi>monogr</gi> ali <gi>series</gi> in je namenjen predstavitvi izdajateljskih podatkov o
+										bibliografskem viru. Vsebuje informacije kot so kraj izdaje, založnik, leto izdaje in druge podatke, ki se nanašajo na fizično ali digitalno
+										izdajo dela. Podrejeni elementi v <gi>imprint</gi> so <list rend="numbered">
+											<item><gi>publisher</gi> - ime založnika, ki je izdalo delo</item>
+											<item><gi>pubPlace</gi> - kraj, kjer je bilo izdano</item>
+											<item><gi>date</gi> - datum izdaje</item>
+											<item><gi>bibScope</gi> - dadatni podatki o delu kot so npr. letnik, številka, strani...</item>
+											<item><gi>idno</gi> - identifikator, kot je ISBN, ISSN ali DOI/handle</item>
+										</list></p></item>
+								<item><gi>series</gi><p>je namenjen opisovanju serijskih publikacij. Vključuje podatke o revijah, letopisih, več delnih knjigah, zbirkah ali drugih
+										periodičnih izdajah (ki vključujejo posamezne dele). Element <gi>series</gi> se vedno nanaša na predhodni element
+									<gi>monogr</gi>.</p></item>
+							</list>
+							<egXML xmlns="http://www.tei-c.org/ns/Examples">
+								<body>
+									<!-- ... -->
+									<biblStruct>
+										<monogr>
+											<author>
+												<persName>
+													<surname>Gašparič</surname>
+													<forename>Jure</forename>
+												</persName>
+											</author>
+											<title level="m">Državni zbor 1992-2012 : O slovenskem parlamentarizmu</title>
+											<imprint>
+												<publisher>Inštitut za novejšo zgodovino</publisher>
+												<pubPlace>Ljubljana</pubPlace>
+											</imprint>
+										</monogr>
+										<series>
+											<title>Razpoznavanja - Recognitiones</title>
+											<biblScope unit="issue">17</biblScope>
+										</series>
+									</biblStruct>
+									<!-- podrobnejši primer -->
+									<biblStruct>
+										<analytic>
+											<author>
+												<persName>
+													<surname>Čepič</surname>
+													<forename>Zdenko</forename>
+												</persName>
+											</author>
+											<title level="a">Jugoslovanska vojska in slovenska milica v vrtincu politike ob koncu osemdesetih let</title>
+											<idno type="hdl">http://hdl.handle.net/11686/37948</idno>
+										</analytic>
+										<monogr>
+											<title level="m">Prikrita modra mreža: organi za notranje zadeve Republike Slovenije v projektu MSNZ leta 1990</title>
+											<idno type="hdl">http://hdl.handle.net/11686/37943</idno>
+											<imprint>
+												<publisher>Zveza policijskih veteranskih društev Sever</publisher>
+												<publisher>Inštitut za novejšo zgodovino</publisher>
+												<pubPlace>Ljubljana</pubPlace>
+												<date when="2010"/>
+											</imprint>
+											<biblScope unit="page" from="44" to="76"/>
+										</monogr>
+										<ref mimeType="application/pdf">https://www.sistory.si/cdn/publikacije/37001-38000/37943/Prikrita_modra_mreza.pdf#page=45</ref>
+									</biblStruct>
+									<!-- ... -->
+								</body>
+							</egXML>
+						</p>
+						<p>Za združevanje bibliografskih citatov katere koli vrste smernice TEI ponujajo element <gi>listBibl</gi>. <egXML xmlns="http://www.tei-c.org/ns/Examples">
+								<back>
+									<!-- ... -->
+									<listBibl>
+										<biblStruct>
+											<monogr>
+												<author>
+													<persName>
+														<surname>Gašparič</surname>
+														<forename>Jure</forename>
+													</persName>
+												</author>
+												<title level="m">Državni zbor 1992-2012 : O slovenskem parlamentarizmu</title>
+												<imprint>
+													<publisher>Inštitut za novejšo zgodovino</publisher>
+													<pubPlace>Ljubljana</pubPlace>
+												</imprint>
+											</monogr>
+											<series>
+												<title>Razpoznavanja - Recognitiones</title>
+												<biblScope unit="issue">17</biblScope>
+											</series>
+										</biblStruct>
+										<!-- naslednji biblStruct -->
+									</listBibl>
+									<!-- ... -->
+								</back>
+							</egXML>
+						</p>
+					</div>
+					<div>
+						<head>Prelomi strani <gi>pb</gi></head>
+						<p>Prelomi strani v digitalnih besedilih, ki temeljijo na tiskanih ali rokopisnih virih, so kodirani z elementom <gi>pb</gi>. Ta element, ki označuje
+							začetek nove strani in s tem tudi mejo med eno stranjo besedila in drugo, je prazen. Prazen element se označi s poševnico (/) na koncu elementa
+							(&lt;pb/&gt;).<pb/>Lahko vsebuje atribut <att>n</att> za oštevilčenje strani. <egXML xmlns="http://www.tei-c.org/ns/Examples">
+								<body>
+									<!-- primer preloma strani <pb/> -->
+									<!-- ... -->
+									<p>Razsežnost slabih razmer italijanskih taborišč nazorno ilustrira spis z naslovom <hi rend="italic">Umrl mi je ata</hi>: <quote>»Res je bilo
+											hudo na Rabu, ko nas je voda zalivala in ko sem bil takrat hudo lačen. Ali še bolj sem bil žalosten za sestrico Danico in za ata, ko sta
+											oba od lakote umrla na Rabu. Ko sem zvedel<pb n="2"/> sem milo jokal. Tako sem še majhen, pa nimam več ata. Zapustil je našo ubogo mamo
+											in 6 revčkov. Naj lepo počiva v tuji rabski zemlji. Kadar bo mir pojdem na njegov grob.«</quote></p>
+									<!-- ... -->
+								</body>
+							</egXML></p>
+					</div>
+					<div>
+						<head>Segmenti <gi>seg</gi></head>
+						<p>Element <gi>seg</gi> se po presoji urejevalca uporablja za označevanje katerega koli poljubljenega segmenta znotraj besedila. Uporabimo ga, ko želimo
+							določene dele besedila označiti za boljšo semantično razločitev. <gi>seg</gi> pomaga strukturirati besedilo na način, ki omogoča boljše razumevanje in
+							nadaljno obdelavo podatkov. Najpogosteje ima atribut <att>type</att>. <egXML xmlns="http://www.tei-c.org/ns/Examples">
+								<body>
+									<!-- več primerov segmentov <seg> z atributom @type -->
+									<!-- ... -->
+									<p>Za Slovenijo, takratno Dravsko banovino, se je druga svetovna vojna začela po napadu sil osi na Kraljevino Jugoslavijo <seg type="date">6.
+											aprila 1941</seg>. Oglušujoči krik: <seg type="quote">»Vojna!«</seg> je prestrašil tiste, ki se jim je zdelo mogoče, da ta lahko doseže
+										tudi slovenske kraje, še bolj pa tiste, ki na to sploh niso računali.</p>
+									<p>Za Slovenijo v letih <seg type="date">1941–1945</seg> je v prvi vrsti <seg type="quote">»značilno nasilje okupatorjev nad prebivalstvom, ki
+											se je jasno izrisalo na vseh področjih javnega življenja, višek pa je doseglo v fizičnem terorju. Represivnih ukrepov so se posluževali
+											vsi okupatorji, saj so računali, da bodo po taki poti čim hitreje in kar se da uspešno izpeljali načrtovano raznarodovanje oziroma
+											'smrt' slovenskega naroda in priključitev okupiranega, geopolitično zelo privlačnega slovenskega ozemlja k svojim državam.«</seg></p>
+									<!-- ... -->
+								</body>
+							</egXML>
+						</p>
+					</div>
+					<div>
+						<head>Tabela <gi>table</gi></head>
+						<p>Element <gi>table</gi> je namenjen predstavitvi tabelaričnih podatkov, ki so organizirani v vrsticah in stolpcih. Mora vsebovati elementa <list>
+								<item><gi>row</gi> - predstavlja posamezno vrstico v tabeli</item>
+								<item><gi>cell</gi> - predstavlja posamezno celico znotraj vrstice</item>
+							</list> medtem ko element <gi>head</gi> ni obvezen. </p>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<body>
+								<!-- primer označevanje tabele -->
+								<!-- ... -->
+								<table>
+									<head>Tabela 1: Socialna struktura ali status mladoletnih žrtev druge svetovne vojne</head>
+									<row>
+										<cell>Socialna struktura/status mladoletnih</cell>
+										<cell>Število</cell>
+										<cell>Delež (%)</cell>
+									</row>
+									<row>
+										<cell>Otroci</cell>
+										<cell>1420</cell>
+										<cell>24</cell>
+									</row>
+									<row>
+										<cell>Neznano</cell>
+										<cell>1325</cell>
+										<cell>22,5</cell>
+									</row>
+									<row>
+										<cell>Učenci</cell>
+										<cell>487</cell>
+										<cell>8,30</cell>
+									</row>
+									<row>
+										<cell>Dijaki</cell>
+										<cell>376</cell>
+										<cell>6,40</cell>
+									</row>
+									<!-- .... -->
+									<row>
+										<cell>Skupaj</cell>
+										<cell>5883</cell>
+										<cell>100</cell>
+									</row>
+									<bibl>Vir: Zbirka Smrtne žrtve INZ</bibl>
+								</table>
+								<!-- ... -->
+							</body>
+						</egXML>
+					</div>
+					<div>
+						<head>Slike <gi>figure</gi></head>
+						<p>Za označevanje vizualnih ali grafičnih predstavitev, kot so slike, ilustracije, diagrami, grafikoni itd. se uporablja <gi>figure</gi>. Same slike so
+							označene z elementom <gi>graphic</gi> katerega atribut <att>url</att> poda lokacijo slike. <gi>figure</gi> lahko združuje več med seboj povezanih
+							informacij.</p>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<body>
+								<!-- primer označevanje slik  -->
+								<figure>
+									<head>SIstory – zgodovina Slovenije</head>
+									<graphic url="media/image1.png">
+										<desc>logo</desc>
+									</graphic>
+									<figDesc>Podatke najdete na portalu <ref target="http://www.sistory.si">SIstory – zgodovina Slovenije</ref></figDesc>
+								</figure>
+								<!-- ... -->
+							</body>
+						</egXML>
+					</div>
+				</div>
+			</div>
+			<!--<div xml:id="preface.4" type="preface">
+				<head>V. Poezija</head>
+				<p>Smernice TEI obravnavajo besedila glede na vrsto dokumenta in ne glede na žanr. Zato Smernice TEI predstavljajo poglavje o verzu, ne o poeziji. Dokumentni tip ni
+					vgrajena lastnost dokumenta, temveč formalizirana analiza dokumenta s strani subjektivnega ustvarjalca, kot je raziskovalec, urednik ali kodirnik, ki besedilo
+					identificira kot prozo, pesem ali dramo skozi lastno subjektivno razmišljanje.</p>
+				<figure rend="imageviewer[1]">
+					<head>Primer poezije. Maček, Tone, „Gorje ti svoje nosi sam!“ Pod Lipo I, 1924, 65, <ref
+							target="https://www.sistory.si/media/uploads/2024-04-04/7a57c3a7d32eb10dbf1b.pdf"
+							>https://www.sistory.si/media/uploads/2024-04-04/7a57c3a7d32eb10dbf1b.pdf</ref>
+					</head>
+					<graphic url="slike/poezija.png"/>
+					<graphic url="slike/poezija-normal.png"/>
+				</figure>
+				<p>Poezijo je mogoče označevati na več načinov, ki so vsi legitimni. Lahko so označeni kot proza </p>
+				<p>Najosnovneše označevanje poezije je označevanje teksta v prozi v elementu <gi>p</gi> v katerem je besedilo ločeno s praznim elementom <gi>lb</gi> (line break),
+					ki označuje začetek nove vrstice.</p>
+				<egXML xmlns="http://www.tei-c.org/ns/Examples">
+					<body>
+						<!-\- primer poezije kot proze -\->
+						<!-\- ... -\->
+						<head>Gorje vi svoje nosi sam!</head>
+						<p>Ko je mladenič v tihi noči<lb/>tožil svojo bol molčečim zvezdancih<lb/>in s spomini srečnih ur trpinčil svoje srce<lb/>ki je v prevazani ljubezni
+							krvavelo,<lb/>je listje samotnega topola šelestelo<lb/>in rahlo šepetalo mu v uho:<lb/>gorje ti svoje nosi sam,<lb/>ne pričakuj mi tujega
+							sočutja.<lb/>In ko pogumno planil je v življenja tok<lb/>in se v njegove zakone poglabljal,<lb/>podizal stare, nove vstvarjal,<lb/>skrivnosti zajne si
+							otvarjal,<lb/>ko dvom mu dušo je razjedal<lb/>razum je dvomu odgovarjal<lb/>gorje vi svoje nosi sam,<lb/>ne pričakuj mi tujega sočutja.<lb/>In ko je v
+							svetem samožrtvovanju<lb/>hotel spremeniti zemljo v raj,<lb/>ljubav hodil oznanjat iz kraja v kraj<lb/>so »krišaj ga« kričali mjegovenu.
+							spoznanju,<lb/>Takrat se je učil spoznavati krivico<lb/>in v zazočaranju spev čital je resnico:<lb/>goje ti svoje nosi sam,<lb/>ne pričakuj mi tujega
+							sočuvja.<lb/>Ko slednjič dni njegovih se zaton je bližal<lb/>ko se ozrl je nazaj na svoja dela,<lb/>brezupna žalost mu je dušo zledenela,<lb/>ko videl
+							je, da nosi vse minljivosti pečat.<lb/>Tedaj, iz neizvestnih, onstranskih svetov<lb/>je hladen dih zanesel glas grobov:<lb/> gorje vi svoje nosi
+							sam,<lb/>ne pričakuj mi tujega sočuvja.«</p>
+						<!-\- ... -\->
+					</body>
+				</egXML>
+				<p> Besedilo v vrsticah je mogoče označiti tudi kot seznam. <egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<body>
+							<!-\- primer poezije kot <list> -\->
+							<list>
+								<head>Gorje ti svoje nosi sam</head>
+								<item>Ko je mladenič v tihi noči</item>
+								<item>tožil svojo bol molčečim zvezdancih</item>
+								<item>in s spomini srečnih ur trpinčil svoje srce</item>
+								<item>ki je v prevazani ljubezni krvavelo,</item>
+								<item>je listje samotnega topola šelestelo</item>
+								<item>in rahlo šepetalo mu v uho:</item>
+								<item>gorje ti svoje nosi sam,</item>
+								<item>ne pričakuj mi tujega sočutja.</item>
+								<!-\- nadaljevanje elementov <item> -\->
+							</list>
+							<!-\- ... -\->
+						</body>
+					</egXML>
+				</p>
+				<p>Za poezijo lahko uporabimo tudi element <gi>l</gi> za označevanje vrstic pesmi, ki jih lahko združimo v skupine v elementu <gi>lg</gi> (line group).</p>
+				<egXML xmlns="http://www.tei-c.org/ns/Examples">
+					<body>
+						<!-\- primer poezije v vrsticah <l> združenih v <lg> -\->
+						<lg>
+							<head>Gorje ti svoje nosi sam</head>
+							<l>Ko je mladenič v tihi noči</l>
+							<l>tožil svojo bol molčečim zvezdancih</l>
+							<l>in s spomini srečnih ur trpinčil svoje srce</l>
+							<l>ki je v prevazani ljubezni krvavelo,</l>
+							<l>je listje samotnega topola šelestelo</l>
+							<l>in rahlo šepetalo mu v uho:</l>
+							<l>gorje ti svoje nosi sam,</l>
+							<l>ne pričakuj mi tujega sočutja.</l>
+							<!-\- nadaljevanje elementov <l> -\->
+						</lg>
+						<!-\- ... -\->
+					</body>
+				</egXML>
+				<p>V primeru na sliki lahko razločimo strukturo pesmi. Ta je razdeljena na več skupin vrstic, ki sestavljajo kitico: </p>
+				<egXML xmlns="http://www.tei-c.org/ns/Examples">
+					<body>
+						<!-\- primer poezije v vrsticah <l> združenih v <lg> -\->
+						<lg>
+							<lg>
+								<l>Ko je mladenič v tihi noči</l>
+								<l>tožil svojo bol molčečim zvezdancih</l>
+								<l>in s spomini srečnih ur trpinčil svoje srce</l>
+								<l>ki je v prevazani ljubezni krvavelo,</l>
+								<l>je listje samotnega topola šelestelo</l>
+								<l>in rahlo šepetalo mu v uho:</l>
+								<l>gorje ti svoje nosi sam,</l>
+								<l>ne pričakuj mi tujega sočutja.</l>
+							</lg>
+							<lg>
+								<l>In ko pogumno planil je v življenja tok</l>
+								<l>in se v njegove zakone poglabljal,</l>
+								<l>podizal stare, nove vstvarjal,</l>
+								<l>skrivnosti zajne si otvarjal,</l>
+								<l>ko dvom mu dušo je razjedal</l>
+								<l>razum je dvomu odgovarjal</l>
+								<l>gorje vi svoje nosi sam,</l>
+								<l>ne pričakuj mi tujega sočutja.</l>
+							</lg>
+							<lg>
+								<l>In ko je v svetem samožrtvovanju</l>
+								<l>hotel spremeniti zemljo v raj,</l>
+								<l>ljubav hodil oznanjat iz kraja v kraj</l>
+								<l>so »krišaj ga« kričali mjegovenu. spoznanju,</l>
+								<l>Takrat se je učil spoznavati krivico</l>
+								<l>in v zazočaranju spev čital je resnico:</l>
+								<l>goje ti svoje nosi sam,</l>
+								<l>ne pričakuj mi tujega sočutja.</l>
+							</lg>
+							<lg>
+								<l>Ko slednjič dni njegovih se zaton je bližal</l>
+								<l>ko se ozrl je nazaj na svoja dela,</l>
+								<l>brezupna žalost mu je dušo zledenela,</l>
+								<l>ko videl je, da nosi vse minljivosti pečat.</l>
+								<l>Tedaj, iz neizvestnih, onstranskih svetov</l>
+								<l>je hladen dih zanesel glas grobov:</l>
+								<l>gorje vi svoje nosi sam,</l>
+								<l>ne pričakuj mi tujega sočuvja.«</l>
+							</lg>
+						</lg>
+					</body>
+				</egXML>
+				<p> </p>
+			</div>-->
+			<div xml:id="preface.5" type="preface">
+				<head>V. Dramski teksti</head>
+				<p style="text-align:justify">Tako kot pri drugih TEI besedilih so tudi vsebine dramskih besedil zapisane v elementu <gi>body</gi>. Pred tem je lahko vključeno
+					uvodno gradivo v <gi>front</gi>, medtem ko sklepno gradivo sledi v <gi>back</gi>. Tako kot druga pisna besedila so dramska in druga uprizoritvena besedila
+					pogosto hierarhično organizirana, na primer v dejanja in prizore. Te strukturne pododdelke se lahko zapiše z uporabo generičnega TEI elementa <gi>div</gi> za
+					splošni namen. Znotraj teh razdelkov je telo izvedbenega besedila običajno sestavljeno iz govorov, pred katerimi je pogosto besedna zveza, ki označuje, kdo
+					govori, in občasno prepletena z odrskimi navodili različnih vrst.</p>
+				<figure rend="imageviewer">
+					<head>Primer dramskega besedila. Oton Zupančič, Noč na verne duše, Ljubljanski zvon, XXIV. letnik (1904): 196-205.</head>
+					<graphic url="slike/drama.jpg"/>
+					<graphic url="slike/drama-normal.jpg"/>
+				</figure>
+				<p>Pri ugotavljanju strukture teksta v sliki je najprej razvidno, da ne gre za prozo ali poezijo. Glavne strukturne delitve so dejanja in prizori, podrobneje pa
+					osnovno besedilno enoto tvorijo kratke vrstice besedila. Te besedilne vrstice (ali odstavki) so razvrščene po posebnem pprincipu in sicer glede na pripovedni
+					lik, ki vrstice izgovarja. Pogosto je ime tega lika navedeno na začetku vsake izjave. Te izjave, oziroma govori, tvorijo osnovno strukturo dramskih besedil</p>
+				<div>
+					<head>Struktura dramskega besedila</head>
+					<p>Smernice TEI se nanašajo na pisne predstavitve izvajanih besedil. Pomembni elementi dramskih besedil so :<list>
+							<item>dejanja</item>
+							<item>prizori</item>
+							<item>opisi scene</item>
+							<item>govori</item>
+							<item>odrske usmeritve</item>
+							<item>tehnična navodila</item>
+						</list><lb/>V nadaljevanju bodo podrobneje razloženi TEI elementi iz primera dramskega besedila na vrhu te strani.</p>
+				</div>
+				<div>
+					<head>Osnovni elementi</head>
+					<p>Kot omenjeno v uvodu je vsebino dramskih besedil možno prav tako kot ostale vrste besedil označevati v elementih <gi>front</gi>, <gi>body</gi> in
+							<gi>back</gi>, deli besedila so lahko označeni z uporabo generičnega elementa <gi>div</gi>. Za podrobnejšo določitev vrste besedila v elementih
+							<gi>div</gi>, lahko uporabimo atribut <att>type</att>. Pri dramskih besedilih so za ta atribut pogoste vrednosti <hi rend="bold">"act"</hi> in <hi
+							rend="bold">"scene"</hi>, če je potrebno se lahko uporabi tudi lastno tipologijo.</p>
+					<p>Najosnovneši princip v dramskih besedilih je združevanje vratic besedila v izreke, ki jih govorijo posamezni liki. Vsako vrstico govora lahko označimo z
+						elementom <gi>sp</gi> (speech). Če je obravnavanem besedilu naveden tudi govorec, ga lahko zabeležimo z uporabo elementa <gi>speaker</gi>. Sam tekst je
+						potrebno označiti z elementom <gi>p</gi> za odstavek, elementom <gi>l</gi> za vrstico ali nedoločenim anonimnim blokom <gi>ab</gi>.</p>
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<body>
+							<!-- priemr <sp> -->
+							<!-- ... -->
+							<sp>
+								<speaker>Ključar</speaker>
+								<p>Če vseh svetnikov ne bole ušesa, mi reci Kajfež ali pa Pilatuž</p>
+							</sp>
+							<sp>
+								<speaker>Kajfež</speaker>
+								<p>A? - Kaj si hočemo!</p>
+							</sp>
+							<sp>
+								<speaker>Stariha</speaker>
+								<p>Dovolj smo jim klepali; a po polnoči še vernim dušicam par komadov, pa bo v redu.</p>
+							</sp>
+							<!-- ... -->
+						</body>
+					</egXML>
+					<p>Pri elementu <gi>sp</gi> se lahko uporablja atribut <att>who</att> za povezovanje govorne vrstice z določenim likom, ki besedilo izgovori. Identifikacija
+						govorca je uporabna pri digitalnem urejanju dramskih besedil ali pri analizi govora. Vrednost atributa <att>who</att> je običajno referenca na element
+						drugje v xml dokumentu, običajno v <gi>castList</gi>. Ta vrednost je sestavljena iz znaka <hi rend="bold">#</hi> in vrednosti atributa <att>xml:id</att>
+						elementa govorca.</p>
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<body>
+							<!-- priemr <sp> z atributom @who -->
+							<!-- ... -->
+							<sp who="#kljucar">
+								<speaker>Ključar</speaker>
+								<p>Če vseh svetnikov ne bole ušesa, mi reci Kajfež ali pa Pilatuž</p>
+							</sp>
+							<!-- ... -->
+						</body>
+					</egXML>
+					<p>Dramska besedila vsebujejo odrske oznake oziroma navodila, ki so opisi fizičnih, vizualnih ali zvočnih elementov predstave. To so lahko scenografija, glasba,
+						gibanje igralcev, osvetlitev...). Te elemente lahko v TEI označimo z elementom <gi>stage</gi>. Te oznake so namenjene režiserjem, igralcem in bralcem za
+						lažjo predstavo dogajanja na odru. Pojavlja se lahko znotraj <gi>sp</gi>, znotraj posameznih prizorov ali aktov v <gi>div</gi>, ali samostojno, kjerkoli se
+						pojavijo v izvornem besedilu. Za razločevanje med različnimi tipi odrskih navodil se lahko uporabi atribut <att>type</att>. </p>
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<body>
+							<!-- primer <stage> -->
+							<!-- ... -->
+							<sp who="#stariha">
+								<speaker>Stariha</speaker>
+								<p>Dovolj smo jim klepali; a po polnoči še vernim dušicam par komadov, pa bo v redu.</p>
+							</sp>
+							<stage type="setting">(Pije iz majolke.)</stage>
+							<!-- ... -->
+						</body>
+					</egXML>
+				</div>
+				<div>
+					<head>Elementi v <gi>front</gi>
+						<gi>back</gi></head>
+					<p>Poelg svojevrstnih osnovnih struktur v samem besedilu lahko dramska besedila spremljajo specifični strukturni elementi. Pri TEI dramskih besedilih sta
+						elementa <gi>front</gi> in <gi>back</gi> namenjena informacijam, ki pomagajo predstaviti ali kontekstualizirati dramsko delo, vendar (po mnenju označevalca)
+						ne spadajo neposredno v dejanja in prizore. Takšni elementi so lahko: <list>
+							<item><gi>castList</gi></item>
+							<item><gi>set</gi></item>
+							<item><gi>prologue</gi></item>
+							<item><gi>epilogue</gi></item>
+							<item><gi>performance</gi></item>
+						</list>
+					</p>
+					<div>
+						<head><gi>castList</gi></head>
+						<p>Element <gi>castList</gi> se uporablja za seznam likov, ki nastopajo v dramskem besedilu. Ker je pomemben del konteksta predstave se pojavlja v uvodnem
+							delu, znotraj elementa <gi>front</gi>. Znotraj elementa se vsak lik označi z elementom <gi>castItem</gi>. Nadalje je vsak lik opisan s svojo vlogo v
+							elementu <gi>role</gi> in kratkim opisom vloge v elementu <gi>roleDesc</gi>. Liki v <gi>castItem</gi> so lahko združeni v skupine v elementu
+								<gi>castGroup</gi>. Za potrebe povezovanja govornih vrstic z določenim likom, se elementom <gi>role</gi> lahko doda <att>xml:id</att>.</p>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<front>
+								<!-- primer <castList> -->
+								<!-- ... -->
+								<castList>
+									<head>Osebe:</head>
+									<castItem>
+										<role xml:id="madronic">Madronič</role>
+										<roleDesc>cerkovnik</roleDesc>
+									</castItem>
+									<castItem>
+										<role xml:id="kljucar">Ključar</role>
+										<roleDesc>starec, še krepak</roleDesc>
+									</castItem>
+									<castItem>
+										<role xml:id="kajfez">Kajfež</role>
+										<roleDesc>starec, sključen in nagluh</roleDesc>
+									</castItem>
+									<castItem>
+										<role xml:id="stariha">Stariha</role>
+										<roleDesc>mlajši kmet</roleDesc>
+									</castItem>
+									<castItem>
+										<role xml:id="mate">Mate</role>
+										<roleDesc>kmečki fant</roleDesc>
+									</castItem>
+									<castItem>
+										<role xml:id="mike">Mike</role>
+										<roleDesc>Madroničev vnuk, petleten</roleDesc>
+									</castItem>
+								</castList>
+								<!-- ... -->
+							</front>
+						</egXML>
+					</div>
+					<div>
+						<head><gi>set</gi> - Opis scene</head>
+						<p>Dramskega besedila pogosto vsebujejo opis prizorišča, časa, kraja, videza itd. dogajanja v igri. Običajno se te informacije nahajajo v prvih vrsticah
+							natisnjenega besedila predstave. Označujemo jih z elementom <gi>set</gi>. Vsebuje oznake na ravni odstavkov <gi>p</gi>. Ta element se ne sme uporabljati
+							zunaj sprednje ali zadnje strani. Za podobne kontekstualne opise znotraj telesa besedila se uporabi element <gi>stage</gi>.</p>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<front>
+								<!-- primer <set> -->
+								<!-- ... -->
+								<set>
+									<p>Vrši se v Beli krajini v noči od vseh svetih na verne duše. Čas: polpreteklost.</p>
+									<p>Predno se dvigne zastor, zvonenje. Prizorišče je zvonik farne cerkve. Trije večji zvonovi in eden manjši za zadnjo uro. Od druge cerkve, iz
+										dalje, še nekaj časa zvonenje.</p>
+									<p><hi rend="bold">Ključar</hi>, <hi rend="bold">Kajfež</hi>, <hi rend="bold">Stariha</hi> in <hi rend="bold">Mate</hi>. Vidi se, da so pravkar
+										nehali zvoniti.</p>
+								</set>
+								<!-- ... -->
+							</front>
+						</egXML>
+					</div>
+					<div>
+						<head>Elementi <gi>prologue</gi>, <gi>epilogue</gi> in <gi>performance</gi></head>
+						<p>Elementa <gi>prologue</gi> (prolog) in <gi>epilogue</gi> (epilog) vsebujeta besedilo, ki ga običajno govori igralec izven karakterja, po možnosti v
+							povezavi z določeno predstavo ali prizoriščem. Lahko so označeni glede na žanrske značilonosti (npr. kot proza ali poezija) ali glede na retorične
+							značilnosti (npr. govor v elementu <gi>sp</gi>)</p>
+						<p>Uvodni in zaključni del dramskega besedila lahko vključuje informacije o tem, kako naj bi bilo ali je bilo besedilo izvedeno. Te informacije so podane v
+							obliki odstavkov in so označene z elementom <gi>performance</gi>.</p>
+					</div>
+				</div>
+			</div>
+			<div xml:id="preface.6" type="preface">
+				<head>VI. Primarni viri</head>
+				<p style="text-align:justify">Označevanje primarnih virov s smernicami Text Encoding Initiative (TEI) omogoča natančno predstavitev in opis dokumentov, kot so rokopisi, knjige, arhivski
+					dokumenti ali druga gradiva. TEI ponuja več elementov za zajem fizičnih lastnosti, vsebine, konteksta in strukture primarnih virov. Mnogo zgodovinskih virov ni
+					bilo namenjenih objavi, ker so bili zasebne narave ali pa še niso bili zaključni dokument v uredniškem procesu. Zaradi tega razloga lahko neobjavljena besedila
+					vsebujejo mnogo značilne sledi nastajanja in urejanja. Pogostokrat v njih najdemo dodatke, prečrtano besedilo, napake in popravke. S smernicami TEI lahko
+					označimo tudi materialne sledi na viru, kot naprimer poškodbe, zaradi katerih besedilo ni berljivo.</p>
+				<p>Pri označevanju primarnega vira je pomemben <gi>teiHeader</gi>, opisan v <ref target="#preface.2">tretjem poglavju</ref>. </p>
+				<p style="text-align:justify">Na tej strani bomo s smernicami TEI znotraj <gi>text</gi> elementa prikazali osnovno označevanje dveh virov: 
+					<list>
+						<item>Maršič, Alojz. Spomini 1929-1945. O kočevskem okraju na predvečer vojne in o internaciji v fašističnih in nacističnih taboriščih. Drugi zvezek.
+							<ref target="https://www.sistory.si/media/legacy/publikacije/20001-21000/20814/zapiski_spomini_2.pdf">https://www.sistory.si/media/legacy/publikacije/20001-21000/20814/zapiski_spomini_2.pdf</ref></item>
+						<item>Foglarjeva pesmarica [Elektronski vir] : Editio princeps, Elektronska znanstvenokritična izdaja. Ur. Ditmajer, Nina et al. Založba ZRC, ZRC SAZU,
+							2021. <ref target="http://hdl.handle.net/20.500.12325/118">http://hdl.handle.net/20.500.12325/118</ref>.</item>
+					</list>
+					<figure rend="imageviewer">
+						<head>Maršič, Alojz. Spomini 1929-1945 in Foglarjeva pesmarica</head>
+						<graphic url="slike/vir2.png"></graphic>
+						<graphic url="slike/vir2-normal.png"></graphic>
+					</figure>
+				</p>
+				<p>Prvi rokopis bi z osnovnim označevanjem lahko označili na naslednji način: <egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<div>
+							<head>Zaslišanje</head>
+							<p>Za Antonom sem bil poklican jaz. Ko je karabiner<lb/> maršalo opazil, da sem jaz na vrsti, mi je prišel<lb/> naproti in me spremil v sobo. Na široko
+								mi je odprl<lb/> sobna vrata in jih po vstopu tudi zaprl. Predstavil<lb/> me je zasliševalni komisiji takole: <quote>"Ta tukaj je Alojz<lb/> Maršič,
+									sim Jožeta Maršiča, oba sta se v prejšnji<lb/> jeseni zadruževala v Ribniški dolini. Imela sta vezo<lb/> s partizani v Veliki gori. Vezo z njimi
+									imata tudi<lb/> sedaj, ko so se partizani premaknili v gozd<lb/> med Kočevsko reko in Kočevjem."</quote> Seveda po takšnem <pb n="6"/>nisem
+								pričakoval nič dobrega. Tolmač je moral biti<lb/> Slovenec, saj je gladko govoril slovensko. Dolžili so<lb/> me, da sodelujem z OF, da sem imel
+								vezo<lb/> s partizani v Veliki gori in da imam tudi sedaj vezo<lb/> izmed partizanov, da moram poznati komandirje. </p>
+						</div>
+					</egXML>
+				</p>
+				<div>
+					<head>Predstavljanje pojavov v primarnih virih</head>
+					<p>Osnovni elementi za predstavljanje dodajanja, izbrisa in izpuščanja so <list>
+							<item><gi>add</gi></item>
+							<item><gi>del</gi></item>
+							<item><gi>gap</gi></item>
+							<item><gi>unclear</gi></item>
+						</list>
+					</p>
+					<p>Pri označevanju primarnih virov v TEI je pomembno, da se dokumentirajo spremembe, ki so se zgodile med procesom pisanja ali urejanja besedila. Te oznake nam
+						omogočajo vpogled v razboj besedila skozi čas. Z njimi lahko pokažemo, kako so bile določene spremembe narejene, kdo jih je naredil in kdaj so bile
+						izvedene. S primerjavo slike vira in zgornjega prepisa v xml obliki vidimo, da je nekaj elementov izpuščenih. Vidimo, da je veliko besed rokopisa
+						prečrtanih, izbrisanih in dodanih.<lb/> Besedilo, ki ga je avtor ali urednik naknadno dodal v dokument se označuje z elementom <gi>add</gi>. Z njim
+						označujemo dodani del besedila in poudarimo, da ta vsebina ni bila del prvotne različice vira.<lb/>
+						<figure>
+							<graphic url="slike/vir_rokopis2_cr.png"/>
+						</figure>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<body>
+								<!-- primer <add> -->
+								<!-- ... -->
+								<p>
+									<pb n="6"/><add>nisem</add> pričakoval nič dobrega. Tolmač je moral biti </p>
+								<!-- ... -->
+							</body>
+						</egXML> Besedilo, ki ga je avtor ali urednik odstranil, se označuje z elementom <gi>del</gi>. Pogosto so izbrisi vidni kot prečtano besedilo. Ta element
+							<gi>del</gi> omogoča ohranitev informacij o tem, kaj je bilo odstranjeno.<lb/> Dodatki in izbrisi so pomembni, ker nam lahko pomagajo pri analizi
+						procesa pisanja teksta oziroma urednikovega posega, lahko pa vsebujejo tudi alternativne interpretacije besedila.</p>
+					<p>Za natančnejše označevanje informacij v <gi>del</gi> in <gi>add</gi> lahko uporabimo atribut <att>rend</att>, na primer, da navedemo, ali je bilo besedilo
+						izbrisano ali prečrtano in kje in kako je bil dodatek napisan. Pri elementu <gi>del</gi> sta primera vrednosti atributa <att>rend</att> najpogostejša
+						"strikethrough" za prečrtano besedilo ali "overwritten" za prepisano z novim besedilom. Elementu <gi>add</gi> lahko za informacijo o mestu dodanega besedila
+						dodamo atribut <att>place</att> - primeri vrednosti tega atributa so 'inline', 'above', 'below', 'bottom', 'top'.</p>
+					<p>Če so v rokopisu deli besedila prečrtani in nato nadomeščeni z novim besedilom (npr. s pisavo nad prejšnjo vrstico), se za prečrtani del uporabi <gi>del</gi>
+						z atributom <att>rend</att>, novo dodano besedilo pa se označi z <gi>add</gi>.</p>
+					<p><gi>gap</gi> element označuje točko, kjer je bilo gradivo izpuščeno v prepisu, bodisi zaradi uredniških razlogov ali ker je gradivo nečitljivo, nevidno ali
+						neslišno. Razlog opišemo s pomočjo atributa <att>reason</att>, ki ima lahko vrednosti <hi rend="italic">"editorial", "illegible", "deleted", "cancelled",
+							"inaudible", "irrelevant", "sampling"</hi>. </p>
+					<p><gi>note</gi> element se uporablja za označevanje komentarjev oz. opomb, ki niso del osnovnega besedila, vendar nudijo pomembne informacije za interpretacijo
+						dokumenta, razumevanja besedila, avtorjevega pisanja ali zgodovinskega konteksta. Označimo jih ne glede na to, ali so že prisotne v besedilu ali jih
+						posreduje označevalec. Opomba je vsak komentar v besedilu, ki je na nek način označen kot izven glavnega toka besedila. Vse opombe morajo biti označene z
+						isto značko <gi>note</gi>, ne glede na to, ali se pojavljajo kot opombe v glavnem besedilnem polju, na dnu strani, na koncu poglavja ali zvezka, na robu ali
+						na katerem drugem mestu. Element <gi>note</gi> lahko vključuje različne atribute za njihov natančnejši opis. Najpogostejši atributi so <list>
+							<item><att>place</att> - za označevanje lokacije opombe</item>
+							<item><att>type</att> - za razlikovanje med opombami</item>
+							<item><att>resp</att> - za identificiranje odgovornosti za vsebino opombe</item>
+							<item><att>n</att> - se lahko uporabi za številčenje ali simbolično označevanje določenega mesta v izvornem besedilu, kjer je opomba "pritrjena"</item>
+						</list>
+					</p>
+					<figure>
+						<graphic url="slike/vir_izsek.png" width="650px"/>
+						<head>Izsek iz Maršič, Alojz. Spomini 1929-1945</head>
+					</figure>
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<body>
+							<!-- Primer <add>, <del>, <gap> in <note> -->
+							<!-- ... -->
+							<p>
+								<gap reason="editorial"/>vrata. Ko se jih je vseh pet vrnilo, <del rend="strikethrough">jih spu</del> je stražar spustil<lb/> drugih pet. Po tem
+								opravilu <add place="above">smo</add> polegli k počitku, na gola tla.<note place="bottom">konec odstavka</note>
+							</p>
+							<!-- ... -->
+						</body>
+					</egXML>
+					<p>Včasih je zaželeno označiti okrajšave v besedilu kopije, bodisi da se zanje sproži posebna obdelava, da se poda celotna oblika skrajšane besede ali besedne
+						zveze ali da se omogočijo različne možne razširitve okrajšave. Okrajšave se lahko prepišejo tako, kot so, ali razširjene; lahko ostanejo neoznačene ali
+						označene. <list>
+							<item><gi>abbr</gi> - vsebuje kakršno koli kratico. Za ralikovanje vrst okrajšav se uporablja atribut <att>type</att></item>
+							<item><gi>expan</gi> - vsebuje razširitev okrajšave. Uporablja se za informacijo o razširitvi okrajšave s strani označevalca. To je stvar uredniške
+								politike. Element mora vsebovati celotno okrajšavo. Običajno je kombiniran z <gi>abbr</gi> elementom znotraj <gi>choice</gi> elementa, z namenom
+								zapisa okrajšave in njene razširitve.</item>
+							<item><gi>choice</gi> - element združuje več ver alternativnih kodiranj za isto točko v besedilu.</item>
+						</list>
+					</p>
+					<figure>
+						<graphic url="slike/vir_rokopis2_cr1.png"/>
+					</figure>
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<body>
+							<!-- primer okrajšave -->
+							<p>
+								<!-- ... -->sodelujem z <choice>
+									<abbr>OF</abbr>
+									<expan>Osvobodilna fronta</expan>
+								</choice>., da sem imel vezo<!-- ... -->
+							</p>
+						</body>
+					</egXML>
+					<p>Prepis primarnih besedilnih virov je odvisen od stanja izvirnega gradiva. Nekateri deli besedil so lahko nejasni, uničeni ali manjkajoči.
+						Pri označevanju strganega ali poškodovanega besedila v TEI uporabljamo elemente, ki omogočajo predstavitev fizičnih poškodb. Najpomembnejši elementi so 
+					<list>
+						<item><gi>damage</gi> - označuje širše poškodovano območje izvornega besedila</item>
+						<item><gi>unclear</gi> - označuje besedo, frazo ali odlomek, ki ga ni mogoče z gotovostjo prepisati, ker je v viru nečitljiv</item>
+						<item><gi>gap</gi> - označuje manjkajoče besedilo</item>
+					</list>
+						Element <gi>damage</gi> lahko vsebuje atribute, ki opisujejo naravo kakršnih koli fizičnih poškodb, ki vplivajo na interpretacijo vira. Najpogostejši so 
+						<list>
+							<item><att>hand</att> - določi 'roko', osebo, ki je povzročila škodo, na primer, če je nekdo znan prečrtal besedilo</item>
+							<item><att>agent</att> - opisuje vzrok poškodbe, če je znan. Na primer voda, ogenj, človek</item>
+							<item><att>extent</att> - opisuje obseg poškodovanega besedila z uporabo projektno specifičnega besednjaka, ki združuje količino in enote v enem samem nizu besed.</item>
+							<item><att>unit</att> - opredeli mersko enoto za poškodbo, na primer centimetri, milimitri, znaki</item>
+							<item><att>type</att> - opredeli vrsto poškodbe</item>
+						</list>
+					</p>
+					<p>Kot primer lahko vzamemo naslednje <ref target="https://sistory.github.io/LatNemKronike/franz.1836.html#ftnD4_return:~:text=1836/95%0ALjubljana%2C%2030.%20(%3F)%20maj%201836">strgano pismo</ref>:</p>
+					<figure rend="imageviewer">
+						<head>Latinske in nemške kronike na Slovenskem, Pisma Franca Franza</head>
+						<graphic url="slike/vir_damage.jpg"></graphic>
+						<graphic url="slike/vir_damage-normal.jpg"></graphic>
+					</figure>
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<body>
+							<!-- primer strganega lista -->
+							<!-- ... -->
+							<div xml:id="franz.1836.095" type="letter">
+								<pb n="1836.05.30_a_._100_6870" break="hr"/>
+								<opener>
+									<dateline><damage>Laibac<gap reason="tear"/></damage></dateline>
+								</opener>
+								<lb/>
+								<p>93.</p>
+								<p>
+									<damage agent="tear">Samstags war Abendgesellscha<gap reason="tear"/>
+										<lb/>heim und gestern Sonntags w<gap reason="tear"/>
+										<lb/>Samstags Abends ist Frau Gräfin<gap reason="tear"/>
+										<lb/>Comtesse Tochter Lori aus Wien ange<gap reason="tear"/>
+										<lb/>Auch Bar. Franz v. Lazzarini war Samstag<gap reason="tear"/>
+									</damage>
+										<lb/>Frau Gemahlin zur Stadt gekommen.
+										<lb/>Gestern war etwas Sonnenschein allein dennoch
+										<lb/>sehr kühl; heute war ein trüber Morgen und
+										<lb/>um 10 Uhr regnete es.
+								</p>
+							</div>
+							<!-- ... -->
+						</body>
+					</egXML>
+					<p>Primer uporabe elementa <gi>unclear</gi> za :</p>
+					<figure>
+						<graphic url="slike/vir_damage-izsek.jpg"></graphic>
+					</figure>
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<p>Frau Gräfin Weichard von Auersperg ist mit Comtessen Töchtern, und den <unclear reason="illegible">H</unclear> Sohn Reichard – Montags nach Fiume
+							abgereist.</p>
+					</egXML>
+					<div>
+						<head>Regularizacija in normalizacija</head>
+						<p>Kadar izvirno besedilo v veliki meri uporablja variantne oblike ali nestandardno črkovanje/zapise, je morda zaželeno, da se ga uredi.
+							Pri zgodovinskih virih se pogosto pojavlja, da pravopis ni bil standardiziran. S pomočjo ustreznih TEI elementov lahko tako nestandardne oblike označimo in jih povežemo z regulariziranimi oziroma
+							normaliziranimi oblikami. 
+						</p>
+						<p>Elementi za označevanje so:
+						<list>
+							<item><gi>reg</gi></item>
+							<item><gi>orig</gi></item>
+							<item><gi>choice</gi></item>
+						</list>
+						</p>
+						<p>Element <gi>reg</gi> vsebuje regularizirano ali normalizirano obliko izvornega besedila. Kodirnik lahko preprosto pokaže, da so bile določene besede posodobljene z uporabo
+							elementa <gi>reg</gi> brez določenih atributov</p>
+						<p>Element <gi>orig</gi> vsebuje izvirno obliko besedila v viru, in jo označi kot nepopravljeno</p>
+						<p>Element <gi>choice</gi> združi več alternativnih označevanj istega teksta. Jasno loči original od regularizirane oblike in omogoča primerjavo obeh oblik.</p>
+						<p>Odvisno od namena prepisa se lahko očitne napake prepišejo takoj, popravijo tiho, izrecno označijo ali izrecno popravijo. Označevalec, ki se drži bolj eksplicitne prakse, 
+							bi rad vsaj opozoril na napake, uredniške popravke ali oboje. Za to se uporabljata elementa <gi>sic</gi> in <gi>corr</gi>. 
+							Element <gi>sic</gi> se uporablja za označevanje reproduciranega besedilo, čeprav očitno napačnega ali netočnega, medtem ko element <gi>corr</gi> vsebuje pravilno obliko
+							zapisa, ki je v besedilu izvoda očitno napačna. Oba elementa sta lahko združena znotraj <gi>choice</gi> elementa.</p>
+						<p>V spodnjem primeru so v kritičnem prepisu združeni vsi opisani elementi:</p>
+						<figure>
+							<head>Primer iz Foglarjeve pesmarice</head>
+							<graphic url="slike/vir_foglar1.png"></graphic>
+						</figure>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<!-- primer <choice>, <orig>, <reg>, <sic>, <corr> -->
+							<lg>
+								<l>Od Boga Očeta čem od Sina začeti</l>
+								<l>Z veseljom inu s praviga srca peti</l>
+								<l>On je zapustija</l>
+								<l>Nebeško <choice>
+										<orig>
+											<choice>
+												<sic>Shpa no vj io</sic>
+												<corr>Shpanovijo</corr>
+											</choice>
+										</orig>
+										<reg>španovijo</reg>
+									</choice>
+								</l>
+								<lg type="refrain">
+									<l>Zahvalena &amp;</l>
+								</lg>
+							</lg>
+						</egXML>
+					</div>
+				</div>
+			</div>
+			<div xml:id="preface.7" type="preface">
+				<head>VII. Označevanje imenskih entitet</head>
+				<p> Smernice Text Encoding Initiative omogočajo natančno označevanje imen, datumov, krajev in drugih imenskih entitet. TEI modul <ref
+						target="https://www.tei-c.org/release/doc/tei-p5-doc/en/html/ND.html">Names, Dates, People, and Places </ref>je zasnovan za potrebe raziskovalcev, ki delajo
+					z besedili, v katerih so takšni podatki pomembni za analizo in interpretacijo. Elementi znotraj modula omogočajo strukturirano označevanje in interoperabilnost
+					med različnimi projekti in orodji. Modul vključuje označevanje osebnih, organizacijskih in geografskih imen, opis oseb, označevanje posameznih datumov, časovnih
+					okvirjev in obdobij, povezavo časovnih izrazov z zgodovinskimi dogodki, opise institucij. označevanja geografskih lokacij, opis odnosov med entitetami in
+					označevanje entite z unikatnimi identifikatorji za povezovanje z zunanjimi viri ali bazami podatov. S tem modulom zagotovimo standardizirano označevanje podatkov in njihovo povezovanje z zunanjimi viri, kot na primer Wikidata ali GeoNames.
+					Z njim ustvarimo podrobnejše digitalne izdaje zgodovinskih dokumentov, kjer je natančno označevanje oseb in krajev pomembno.
+				</p>
+				<div>
+					<head>Osebna imena</head>
+					<p>
+						Najosnovnejša elementa, ki ločita imena v besedilu sta <gi>rs</gi> in <gi>name</gi> vendar
+						nista dovolj podrobna, saj znotraj njiju ne moremo strukturirati zapisa. Ker želimo razločevati med posameznimi sestavnimi deli imen, kot so informacije o imenu, priimku, nazivu,
+						statusu, poklicu, prebivališču, lahko uporabimo več različnih TEI elemetov. Za označevanje osebnih imen uporabimo naslednje elemente
+					<list>
+						<item><gi>persName</gi> - osebno ime</item>
+						<item><gi>surname</gi> - priimek</item>
+						<item><gi>forename</gi> - ime</item>
+						<item><gi>roleName</gi> - naziv</item>
+						<item><gi>addName</gi> - dodatno ime</item>
+						<item><gi>nameLink</gi> - vezni členi v imenu (van der...)</item>
+						<item><gi>genName</gi> - generacijska oznaka (starejši, mlajši, I., II.)</item>
+					</list>
+					</p>
+					<p>Element <gi>PersName</gi> vsebuje lastno ime ali besedno zvezo, ki se nanaša na osebo. Lahko vključuje enega ali več osebnih imen, priimkov, častnih nazivov
+						itd. Omogoča označevanje komponent znotraj elementa. Za dodatno označevanje se lahko uporablja atribut <att>type</att> - za dodajanje podrobnosti o sestavnem delu imena. 
+						Znotraj elementa lahko označimo osebno ime in priimek z ustreznima elementoma v poljubnem vrstnem redu:
+							<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<persName>
+								<forename type="first">Anton</forename>
+								<forename type="middle">Martin</forename>
+								<surname>Slomšek</surname>
+							</persName>
+						</egXML>
+					</p>
+					<p>Element <gi>roleName</gi> označuje sestavni del imena, ki se nanaša na vlogo ali položaj posameznika v družbi. Uporablja se za označevanje uradnih nazivov, položajev. Lahko vključuje naslove kot so 
+						<hi rend="italic">kralj</hi>, <hi rend="italic">doktor</hi>, <hi rend="italic">predsednik</hi> itd.</p>
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<persName>
+							<forename>France</forename>
+							<surname>Prešeren</surname>
+							<roleName type="honorific">Doktor</roleName>
+						</persName>
+					</egXML>
+					<p>Element <gi>addName</gi> se uporablja za označevanje dodatnih delov v imenu posameznika, ki niso nujno del osebnega imena ali priimka. To vključuje vzdevke ali na primer epitete.</p>
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<persName>
+							<forename>Aleksander</forename>
+							<addName type="epithet">Veliki</addName>
+						</persName>						
+					</egXML>
+					<p>Podrobne informacije o osebi so običajno shranjene v glavi dokumenta <gi>teiHeader</gi>. Najdemo jih v elementu <gi>person</gi>, ki združuje vse informacije o osebi. Več oseb združimo v elementu 
+						<gi>listPerson</gi>, ki ga uporabimo znotraj elementa <gi>particDesc</gi></p>
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">
+						<particDesc>
+							<listPerson>
+								<head>Seznam govornikov</head>
+								<person xml:id="BučarFrance">
+									<persName>
+										<surname>Bučar</surname>
+										<forename>France</forename>
+										<roleName>dr.</roleName>
+									</persName>
+									<sex value="M"/>
+									<birth when="1923-02-02">
+										<placeName ref="https://www.geonames.org/3203808">Bohinjska Bistrica</placeName>
+									</birth>
+									<affiliation role="MP" ref="#DruzPolZb"
+										from="1990-05-08" to="1992-12-22" ana="#SK.11"/>
+									<idno type="URI" subtype="wikimedia"
+										xml:lang="sl">https://sl.wikipedia.org/wiki/France_Bu%C4%8Dar</idno>
+								</person>
+							</listPerson>
+						</particDesc>
+					</egXML>
+				</div>
+				<div>
+					<head>Imena organizacij</head>
+					<p>Za natančno označevanje imen organizacij se uporablja element <gi>orgName</gi>. Organizacija v tem kontekstu ni omejena samo na formalno ustanovljene institucije, kot so podjetja ali univerze,
+					ampak lahko vključuje tudi skupine, ki jih kot enoto zaznava družba, kot na primer etnične skupine, podjetja, ustanove ali politične skupine. Prav tako kot <gi>persName</gi> je <gi>orgName</gi> uporabljen za podrobnejše informacije kot 
+					elementa <gi>rs</gi> in <gi>name</gi>. Prav tako lahko uporabimo iste atribute kot pri <gi>persName</gi>.</p>
+					<egXML xmlns="http://www.tei-c.org/ns/Examples">						
+						<orgName>Demokratična opozicija Slovenije</orgName>
+					</egXML>
+				</div>
+				<div>
+					<head>Krajevna imena</head>
+					<p>Označevanje kraja igra pomembno vlogo pri razumevanju konteksta besedila in njegovi zgodovinski, geografski ali literarni analizi. 
+						Za ta namen se primarno uporabljata elementa <list><item><gi>placeName</gi> in</item>
+							<item><gi>geogName</gi></item></list>.
+					</p>
+					<p>Element <gi>placeName</gi> vsebuje krajevno ime, ki se pojavi v besedilu. TEI omogoča vključitev dodatnih atributov za natančno referenciranje krajev.
+						Atribut <att>ref</att> se uporablja za povezavo kraja z ustreznimi zemljevidi oziroma zunanjimi podatkovnimi viri, kot je na primer GeoNames.
+						Podobno kot pri prejšnjih primerih bi lahko enostavne primere označili z elementoma
+							<gi>rs</gi> in <gi>name</gi> z atributom <att>type</att> z vrednostjo "place" (npr. &lt;name type="place"&gt;).<lb/><lb/><gi>placeName</gi> lahko vsebuje le
+						besedilo brez strukture. <egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<placeName>Ljubljana</placeName>
+						</egXML>
+						Običajno se krajevno ime nadalje razčleni z vidika njegovih geopolitičnih ali upravnih enot. Elementi, s katerimi lahko to razčlenimo so:
+						<list>
+							<item><gi>settlement</gi>
+								<list>
+									<item>označuje ime naselja, kot je mesto, trg ali vas, ki se šteje kot enotna geo-politična ali administrativna enota.</item>
+								</list>
+								<egXML xmlns="http://www.tei-c.org/ns/Examples">
+									<placeName>
+										<settlement>Ljubljana</settlement>
+									</placeName>
+								</egXML>
+							</item>
+							<item><gi>country</gi>
+								<list>
+									<item>element vsebuje ime geo-politične enote, kot je narod, država, kolonija ali skupnost.</item>
+								</list>
+								<egXML xmlns="http://www.tei-c.org/ns/Examples">
+									<placeName>
+										<settlement ref="https://www.geonames.org/3196359">Ljubljana</settlement>
+										<country>Slovenija</country>
+									</placeName>
+								</egXML></item>
+							<item><gi>district</gi>
+								<list>
+									<item>označuje ime katere koli vrste manjše enote naselja, na primer župnije, krajevne skupnosti ali druge administrativne ali geografske
+										enote.</item>
+								</list>
+								<egXML xmlns="http://www.tei-c.org/ns/Examples">
+									<placeName>
+										<settlement ref="https://www.geonames.org/3196359">Ljubljana</settlement>
+										<district>Prule</district>
+										<country>Slovenija</country>
+									</placeName>
+								</egXML>
+							</item>
+							<item><gi>region</gi>
+								<list>
+									<item>z njim označimo ime administrativne enote (kot je na primer provinca ali grofija), ki je večja od naselja, vendar manjša od države.</item>
+								</list>
+								<egXML xmlns="http://www.tei-c.org/ns/Examples">
+									<placeName>
+										<settlement ref="https://www.geonames.org/3196359">Ljubljana</settlement>
+										<region>Osrednjeslovenska</region>
+										<country>Slovenija</country>
+									</placeName>
+								</egXML></item>
+							<item><gi>bloc</gi>
+								<list>
+									<item>vsebuje ime geo-politične enote, ki jo sestavljata dve ali več držav (npr. EU).</item>
+								</list>
+								<egXML xmlns="http://www.tei-c.org/ns/Examples">
+									<placeName>
+										<settlement ref="https://www.geonames.org/3196359">Ljubljana</settlement>
+										<country>Slovenija</country>
+										<bloc>Europska unija</bloc>
+									</placeName>
+								</egXML></item>
+						</list>
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<placeName>
+								<settlement ref="https://www.geonames.org/3196359">Ljubljana</settlement>
+								<country>Slovenija</country>
+								<bloc>Europska unija</bloc>
+							</placeName>
+						</egXML>
+					</p>
+					<p>
+						Kraji so lahko poimenovani tudi glede na njihove geografske značilonosti. Element <gi>geogName</gi> (geographical name) identificira ime, povezano z neko geografsko značilnostjo.
+						<egXML xmlns="http://www.tei-c.org/ns/Examples">
+							<geogName>
+								<name type="valley">Logarska dolina</name>
+								<region>Kamniško-Savinjske Alpe</region>
+								<country>Slovenia</country>
+							</geogName>
+
+							<!-- ... -->
+							<geogName>
+								<name type="mountain">Triglav</name>
+								<region>Julijske Alpe</region>
+								<country>Slovenia</country>
+							</geogName>
+							
+						</egXML>
+					</p>
+				</div>
+			</div>
+			<!--<div xml:id="preface.8" type="preface">
+				<head>VIII. Kritično urejanje</head>
+				
+			</div>-->
+		</front>
+		<body>
+			<div type="chapter" xml:id="ch03">
+				<head>I. TEI Header</head>
+				<p>S pomočjo primerov v poglavju I. TEI header, ustvarite <gi>teiHeader</gi> za enega od naslednjih primerov:
+					<list>
+						<item>Potenciali in upravljanje vodá. Med preteklostjo in sedanjostjo - <ref target="https://omp.inz.si/zalozba/catalog/book/157">Povezava</ref></item>
+						<figure>
+							<graphic url="slike/cover.png" height="450px"></graphic>
+						</figure>
+						<item>Projekt Spomini še živijo ter otroci in mladoletni v vojni (Slovenija 1941–1945)
+							- <ref target="https://ojs.inz.si/pnz/article/view/4355">Povezava</ref></item>
+						<figure>
+							<graphic url="slike/cover2.png" height="450px"></graphic>
+						</figure>
+					</list>
+				</p>
+				<p>
+					Za publikacijo ustvarite <gi>teiHeader</gi>, ki naj vsebuje naslednje elemente in z njimi povezane elemente in atribute:<list>
+						<item>
+							<gi>fileDesc</gi>
+						</item>
+						<item> 
+							<gi>titleStmt</gi>
+						</item>
+						<item> 
+							<gi>publicationStmt</gi>
+						</item>
+						<item>
+							<gi>sourceDesc</gi>
+						</item>
+						<item>
+							<gi>encodingDesc</gi>
+						</item>
+						<item> 
+							<gi>profileDesc</gi>
+						</item>
+						<item>
+							<gi>revisionDesc</gi>
+						</item>
+					</list>
+				</p>
+			</div>
+			<div type="chapter" xml:id="ch04">
+				<head>II. Proza</head>
+				<p>Označite naslednji primer besedila z elementi, opisanimi v poglavju <ref target="#preface.3">IV. Proza</ref></p>
+				<p>Končni dokument pošljite na naslov <ref target="mailto:Mihael.Ojstersek@inz.si">Mihael.Ojstersek@inz.si</ref></p>
+				<figure>
+					<graphic url="slike/Besedilo_proza.png"></graphic>
+				</figure>
+				<p>Tekst v docx dokumentu: <ref target="gradivo/Proza.docx">povezava</ref></p>
+				<p>
+					Označite:
+					<list>
+						<item>Poglavja in podpoglavja - 
+							<gi>head</gi>
+						</item>
+						<item>Razdelke - 
+							<gi>div</gi>
+						</item>
+						<item>Odstavke - 
+							<gi>p</gi>
+						</item>
+						<item>Citate - 
+							<gi>quote</gi>
+						</item>
+						<item>Slike - 
+							<gi>figure</gi>
+						</item>
+						<item>Tabele - 
+							<gi>table</gi>
+						</item>
+						<item>Sezname - 
+							<gi>list</gi>
+						</item>
+						<item>Opombe - 
+							<gi>note</gi>
+						</item>
+					</list>
+				</p>
+			</div>
+			<div type="chapter" xml:id="ch06">
+				<head>III. Dramski teksti</head>
+				<p>Pretvorite besedilo v xml dokument in ga značite z elementi, opisanimi v poglavju <ref target="#preface.5">V. Dramski teksti</ref></p>
+				<p>Končni dokument pošljite na naslov <ref target="mailto:Mihael.Ojstersek@inz.si">Mihael.Ojstersek@inz.si</ref></p>			
+				<figure>
+					<graphic url="slike/besedilo-drama.png"></graphic>
+					<head>Etbin Kristan, Volja, Ljubljanski zvon, XXII. letnik (1902): 311-324.</head>
+				</figure>
+				<p>Tekst v docx dokumentu: <ref target="gradivo/drama.docx">povezava</ref></p>
+				<p>Označite elemente:</p>
+				<list>
+					<item>Razdelke - 
+						<gi>div</gi>
+					</item>
+					<item>Seznam nastopajočih - 
+						<gi>castList</gi> in z njim povezane elemente
+					</item>
+					<item>Opis scene - 
+						<gi>set</gi>
+					</item>
+					<item>Govore - 
+						<gi>sp</gi>
+					</item>
+					<item>Govorce - 
+						<gi>speaker</gi>
+					</item>
+				</list>
+			</div>
+			<div type="chapter" xml:id="ch07">
+				<head>IV. Primarni viri</head>
+				<p>Pretvorite besedilo v xml dokument in ga značite z elementi, opisanimi v poglavju <ref target="#preface.6">VI. Primarni viri</ref></p>
+				<p>Končni dokument pošljite na naslov <ref target="mailto:Mihael.Ojstersek@inz.si">Mihael.Ojstersek@inz.si</ref></p>
+				<figure>
+					<graphic url="slike/PrimerVIR.png"></graphic>
+					<head>Maršič, Alojz. Spomini 1929-1945. O kočevskem okraju na predvečer vojne in o internaciji v fašističnih in nacističnih taboriščih. Drugi zvezek. <ref target="https://www.sistory.si/media/legacy/publikacije/20001-21000/20814/zapiski_spomini_2.pdf">https://www.sistory.si/media/legacy/publikacije/20001-21000/20814/zapiski_spomini_2.pdf</ref></head>
+				</figure>
+				<p>Tekst v pdf dokumentu: <ref target="gradivo/vir1.docx">povezava</ref></p>
+				<p>Označite elemente in z njim povezane atribute. Nekateri predlagani elementi:</p>
+				<list>
+					<item><gi>div</gi></item>
+					<item><gi>p</gi></item>
+					<item><gi>note</gi></item>
+					<item><gi>add</gi></item>
+					<item><gi>del</gi></item>
+					<item><gi>unclear</gi></item>
+				</list>
+			</div>
+			<div type="chapter" xml:id="ch08">
+				<head>V. Imenske entitete</head>
+				<p>Pretvorite besedilo v xml dokument in ga značite z elementi, opisanimi v poglavju <ref target="#preface.7">VII. Označevanje imenskih entitet</ref></p>
+				<p>Končni dokument pošljite na naslov <ref target="mailto:Mihael.Ojstersek@inz.si">Mihael.Ojstersek@inz.si</ref></p>
+				<figure>
+					<graphic url="slike/vir_tipkopis1.png"></graphic>
+					<head>Valenčič, Vlado, Židje v preteklosti Ljubljane. 1992, str. 122. 
+						<ref target="https://www.sistory.si/media/legacy/publikacije/38001-39000/38193/36_299_Zidje_v_preteklosti_Ljubljana.pdf">https://www.sistory.si/media/legacy/publikacije/38001-39000/38193/36_299_Zidje_v_preteklosti_Ljubljana.pdf</ref></head>
+				</figure>
+				<p>Tekst v docx dokumentu: <ref target="gradivo/Imenske_entitete.docx">povezava</ref></p>
+				<p>tekst:<lb/>
+					Ministrska uredba od 5. oktobra 1940 je predpisala revizijo tr<lb/>govskih obratov na debelo s predmeti ljudske hrane, ki so njihovi last<lb/>
+					niki bili Židje. Od dneva, ko je stopila uredba v veljavo, obrtne obla<lb/>sti niso smele več izdajati Židom pooblastil oziroma dovoljenj za tr<lb/>
+					govine s predmeti ljudske hrane na debelo. Židovskim imetnikom že ob<lb/>stoječih trgovinskih obratov te stroke je bilo mogoče prepovedati na<lb/>
+					daljnje obratovanje ali pa jim postaviti komisarje za vodstvo poslov.<lb/> Proti kršiteljem uredbe je bila glede prisilnega bivanja ali prisil<lb/>
+					nega dela predvidena uporaba istih predpisov, kot so veljali za brez<lb/>vestne špekulante.18	
+					V zvezi z omenjeno uredbo je ljubljansko mestno<lb/> poglavarstvo poročalo banski upravi, da so v Ljubljani tri židovske<lb/>
+					firme, ki so trgovale s predmeti ljudske hrane na debelo in sicer Ka<lb/>rel Bolaffio, Oskar Ebenspanger ter "Alko", katere lastnika sta bila<lb/>
+					Adolf in Oton Lorant. Vsem trem firmam je bila nato obrtna pravica raz<lb/>veljavljena in obratovanje prepovedano.19	
+					<lb/><lb/>
+					Uredba o ukrepih, ki se nanašajo na Žide glede izvrševanja obratov s predmeti ljudske prehrane. Službeni list banske uprave 1940, str. 862.
+					<lb/>
+					MALJ, Reg. I-I. št. 67.097/40; vložni zapisnik 1940, št. 70.889,70.890,70.891,74.673,74.674,74.675.			
+				</p>
+			</div>
+		</body>
+		<back>
+			<listBibl>
+				<biblStruct>
+					<monogr>
+						<author>
+							<persName>
+								<surname>Gašparič</surname>
+								<forename>Jure</forename>
+							</persName>
+						</author>
+						<title level="m">Državni zbor 1992-2012 : O slovenskem parlamentarizmu</title>
+						<imprint>
+							<publisher>Inštitut za novejšo zgodovino</publisher>
+							<pubPlace>Ljubljana</pubPlace>
+						</imprint>
+					</monogr>
+					<series>
+						<title>Razpoznavanja - Recognitiones</title>
+						<biblScope unit="issue">17</biblScope>
+					</series>
+				</biblStruct>
+				<!--  -->
+			</listBibl>
+		</back>
+	</text>
+</TEI>
