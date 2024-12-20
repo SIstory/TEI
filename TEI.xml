@@ -48,9 +48,9 @@
 		<front>
 			<titlePage>
 				<docTitle>
-					<titlePart type="main">TEI</titlePart>
+					<titlePart type="main">Text Encoding Initiative - TEI</titlePart>
 				</docTitle>
-				<graphic url="cover-page.jpg"/>
+				<graphic url="cover-page.png"/>
 				<docImprint>
 					<publisher>Inštitut za novejšo zgodovino</publisher>
 					<date>2024</date>
@@ -2099,30 +2099,6 @@
 					MALJ, Reg. I-I. št. 67.097/40; vložni zapisnik 1940, št. 70.889,70.890,70.891,74.673,74.674,74.675.			
 				</p>
 			</div>
-		</body>
-		<back>
-			<listBibl>
-				<biblStruct>
-					<monogr>
-						<author>
-							<persName>
-								<surname>Gašparič</surname>
-								<forename>Jure</forename>
-							</persName>
-						</author>
-						<title level="m">Državni zbor 1992-2012 : O slovenskem parlamentarizmu</title>
-						<imprint>
-							<publisher>Inštitut za novejšo zgodovino</publisher>
-							<pubPlace>Ljubljana</pubPlace>
-						</imprint>
-					</monogr>
-					<series>
-						<title>Razpoznavanja - Recognitiones</title>
-						<biblScope unit="issue">17</biblScope>
-					</series>
-				</biblStruct>
-				<!--  -->
-			</listBibl>
-		</back>
+		</body>		
 	</text>
 </TEI>
